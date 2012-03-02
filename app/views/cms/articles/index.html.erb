@@ -1,0 +1,23 @@
+<h1>Articles index page</h1>
+
+<% @articles.desc(:date).limit(10).each do |article| %>
+	<div class="index_item page_index_item">
+		<div class="controls">
+			<%#= link_to 'View', single_article_path(article.id) %>
+			<%= link_to 'Edit', edit_article_path(article) %>			
+			<%= link_to 'Delete', article_path(article), :method => :delete, :confirm => 'Are you sure?' %>
+		</div>
+		<%= link_to article.title, edit_article_path(article) %>			
+		
+		<% if article.category %>
+			<div class='article_categories'>
+				<%= article.category.name %> | <%= l article.date, :format => :long %>
+			</div>
+		<% end %>
+		
+	</div>
+<% end %>
+
+<div class="button new_button">
+	<%= link_to 'New Article', new_article_path(@institution) %>
+</div>

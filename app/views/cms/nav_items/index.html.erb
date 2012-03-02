@@ -1,0 +1,16 @@
+<div class="new_instance_link">
+	<%= link_to 'New Nav Item', new_nav_menu_nav_item_path(@nav_menu) %>
+</div>
+<h1><%= @nav_menu.name %> Links</h1>
+
+<div class="field" id="sortable_nav_items">
+	<% @nav_menu.nav_items.asc(:position).each do |nav_item| %>
+		<div class="index_nav_item" id="navitem_<%= nav_item.id %>">
+			<div class="controls">
+			  <%= link_to 'Delete', nav_menu_nav_item_path(@nav_menu, nav_item), :confirm => 'Are you sure?', :method => :delete %>
+			  <%= link_to 'Edit', edit_nav_menu_nav_item_path(@nav_menu, nav_item) %>			
+			</div>
+			<%= link_to nav_item.name, edit_nav_menu_nav_item_path(@nav_menu, nav_item) %>
+		</div>
+	<% end %>
+</div>

@@ -1,0 +1,15 @@
+<div class="new_instance_link">
+	<%= link_to 'New User', new_user_path %>
+</div>
+
+<h1>Users</h1>
+
+<% @users.each do |user| %>
+	<div class="index_item page_index_item">
+		<div class="controls">
+			<%= link_to 'Edit', edit_user_path(user) %>
+			<%= link_to 'Delete', user_path(user), :method => :delete, :confirm => 'Are you sure?' %>
+		</div>
+		<%= link_to user.name, edit_user_path(user) %>
+	</div>
+<% end %>

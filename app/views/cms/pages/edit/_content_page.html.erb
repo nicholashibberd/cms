@@ -1,0 +1,67 @@
+<div class="row" id="sortable_widgets">
+	<% page_columns(@page).each_with_index do |column, index| %>
+		<div class="span<%= column %> connectedSortable" id="sortable<%= index + 1 %>">
+			<% @page.widgets.by_column((index + 1).to_s).order_by_position.each_with_index do |widget, index| %>
+					<div class="widget sortable_widget" id="<%= widget.id %>">
+						<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget, :column => column %>
+
+						<!-- Modal edit screen	-->
+						<div class="edit_widget">
+							<button class="btn" data-toggle="modal" data-target="#column_one_<%= widget.id %>">Edit</button>
+							<div class="modal fade" id="column_one_<%= widget.id %>">
+							  <div class="modal-header">
+							    <a class="close" data-dismiss="modal">×</a>
+							    <h3>Edit <%= widget.widget_type.titleize %></h3>
+							  </div>
+							  <div class="modal-body">
+									<%= render "cms/widgets/form", :widget => widget %>
+							  </div>
+								<div>
+									<%= button_to 'Delete', page_widget_path(@page, widget), :method => :delete, :class => 'btn-danger' %>
+								</div>
+							  <div class="modal-footer">
+							    <a href="#" class="btn btn-primary">Save changes</a>
+							    <a href="#" class="btn" data-dismiss="modal">Close</a>
+							  </div>
+							</div>
+						</div>
+						<!-- End Modal edit screen	-->
+					</div><!-- End div.sortable_widget	-->
+					
+			<% end %>
+		</div>
+	<% end %>
+</div>
+
+<div>
+	<button id="order_widgets_button" class="btn">Save order</button>
+</div>
+
+<%= javascript_tag do %>
+	$( "#sortable1, #sortable2, #sortable3" ).sortable({
+		connectWith: ".connectedSortable",
+		items: 'div.sortable_widget',
+		dropOnEmpty: true
+	});
+	
+	$('button#order_widgets_button').click(function(){
+		$.ajax({
+     	 type: 'post', 
+       data: {
+			   'widgets[1]': get_widget_ids($('#sortable1').children()),
+				 'widgets[2]': get_widget_ids($('#sortable2').children()),
+				 'widgets[3]': get_widget_ids($('#sortable3').children())
+				},
+       dataType: 'script', 
+       url: '/cms/order_widgets/'});
+	});
+	
+	function get_widget_ids(children) {
+		ids = [];
+		children.each(function() {
+			ids.push($(this).attr('id'))
+		});
+		return ids;
+	}
+	
+<% end %>

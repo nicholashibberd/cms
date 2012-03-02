@@ -1,0 +1,21 @@
+<div class="new_instance_link">
+	<%= link_to 'New Photo', new_photo_path(@institution) %>
+</div>
+
+<h1>Photos</h1>
+
+<div id="sortable_photos">
+	<% @photos.asc(:position).each do |photo| %>
+		<div class="index_item photo_index_item" id="photo_<%= photo.id %>">
+			<div class="controls">
+				<%= link_to 'Edit', edit_photo_path(photo) %>
+				<%= link_to 'Delete', photo_path(photo), :method => :delete, :confirm => 'Are you sure?' %>
+			</div>
+			<div class="photos_index_image">
+				 <%#= image_tag photo.cover_image.to_file('assets/out.png') %>
+				 <%= image_tag photo.cover_image.url %>
+			</div>
+			<%= link_to photo.caption, edit_photo_path(photo) %>
+		</div>
+	<% end %>
+</div>

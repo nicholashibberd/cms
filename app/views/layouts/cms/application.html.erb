@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cms</title>
+  <%= stylesheet_link_tag    "cms/application" %>
+	<%= stylesheet_link_tag    "style" %>
+  <%= javascript_include_tag "cms/application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="container">
+			<div id="user_status">
+				<% if current_user %>
+				<%= current_user.name %>: <%= link_to "Sign out", signout_path, :id => 'signout_link' %> | 
+				<% end %>
+				<%= link_to 'View site', '/' %>
+			</div>
+	    <h1><%= site_name %></h1>
+			<%= render 'layouts/cms/top_nav' %>	
+	    <div id="<%= current_controller %>_<%= request[:action] %>_content" class="content">
+				<!-- Flash message goes here -->
+				<% if !flash.blank? %>
+			    <div id='flash'>
+			      <ul id='flash_list'>
+			        <% flash.each do |key, value| %>
+			          <li class="flash_item <%= key %>"><%= value %></li>
+			        <% end %>
+			      </ul>
+			    </div>
+			  <% end %>
+
+	      <%= yield %>
+	    </div>
+	  </div>
+	</div>
+</body>
+</html>

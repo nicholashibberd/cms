@@ -1,0 +1,9 @@
+<%= form_for @category do |f| %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="button confirm_button">
+    <%= f.submit %>
+  </div>
+<% end %>

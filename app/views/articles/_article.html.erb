@@ -1,0 +1,17 @@
+<div class="article">
+	<div class="article_title">
+		<%= date_icon(article.date).html_safe %>
+		<h2><%= link_to article.title, host_article_path(article) %></h2>
+	</div>
+	<div class="article_content">
+		<%= truncate_html article.content, :length => snippet_size, :omission => link_to(' ...(read more)', host_article_path(article)) %>
+	</div>
+	<div class="article_details">
+		<div class="article_author">
+			By <%= article.person.name %> on <%= l article.date, :format => :long %>
+		</div>
+		<%= display_article_comments(article) do %>
+			<%= pluralize(article.comments.count, 'comment', 'comments') %>
+		<% end %>
+	</div>
+</div>

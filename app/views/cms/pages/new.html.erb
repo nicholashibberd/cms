@@ -1,0 +1,8 @@
+<h1>New Page</h1>
+<%= form_for @page, :url => pages_path do |f| %>
+	<%= hidden_field_tag :page_type, @page.page_type %>
+	<%= render "#{@page.page_type}_form", :f => f %>
+	<div class='field'>
+	  <%= f.submit 'Save' %>
+	</div>
+<% end %>

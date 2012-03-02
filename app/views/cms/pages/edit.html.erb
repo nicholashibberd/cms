@@ -1,0 +1,39 @@
+<%# content_for :head do %>
+	<%#= javascript_include_tag 'jquery-ui' %>
+<%# end %>
+
+<h1><%= @page.name %></h1>
+<%= form_for @page, :url => page_path(@page) do |f| %>
+	<%= hidden_field_tag :page_type, @page.page_type %>
+	<%= render "cms/pages/form/#{@page.page_type}", :f => f %>
+	<div class='field'>
+	  <%= f.submit 'Save' %>
+	</div>
+<% end %>
+
+<% unless @page.new_record? %>
+	<%= render_page_template(@page, 'edit') %>
+<% end %>
+
+
+<% if @page.page_type == 'content_page' %>
+	<div id="add_widgets_section">
+		<h2>Add Widgets</h2>
+		<div>
+			<a class="btn" data-toggle="modal" href="#add_text_widget" >Text</a>
+			<%= render 'cms/widgets/form/add_widget_form', :widget => ContentWidget.new, :description => 'Text' %>
+		</div>
+		<div>
+			<a class="btn" data-toggle="modal" href="#add_map_widget" >Map</a>
+			<%= render 'cms/widgets/form/add_widget_form', :widget => MapWidget.new, :description => 'Map' %>
+		</div>
+		<div>
+			<a class="btn" data-toggle="modal" href="#add_form_widget" >Form</a>
+			<%= render 'cms/widgets/form/add_widget_form', :widget => FormWidget.new, :description => 'Form' %>
+		</div>
+		<div>
+			<a class="btn" data-toggle="modal" href="#add_gallery_widget" >Photos</a>
+			<%= render 'cms/widgets/form/add_widget_form', :widget => GalleryWidget.new, :description => 'Gallery' %>
+		</div>
+	</div>
+<% end %>

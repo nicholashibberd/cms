@@ -1,0 +1,16 @@
+<div class='new_instance_link'>
+  <%= link_to 'New category', new_category_path %>
+</div>
+
+<h1>Categories</h1>
+<div>
+	<% @categories.each do |category| %>
+    <div class="index_item">
+			<div class="controls">
+				<%= link_to 'Delete', category_path(category), :method => :delete, :confirm => 'Are you sure?' %>							
+				<%= link_to 'Edit', edit_category_path(category) %>
+			</div>
+			<%= link_to category.name, edit_category_path(category) %>
+		</div>
+	<% end %>
+</div>

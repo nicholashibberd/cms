@@ -1,0 +1,6 @@
+<%# raise @page.inspect %>
+<%= render 'articles/articles_archive', :page => @page, :category => @page.category %>
+
+<% @page.articles(params[:month]).each do |article| %>
+	<%= render :partial => 'articles/article', :locals => {:article => article, :snippet_size => @page.snippet_size} %>
+<% end %>
