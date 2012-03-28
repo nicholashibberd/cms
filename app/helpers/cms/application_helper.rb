@@ -7,6 +7,6 @@ module Cms
     def current_controller
       request[:controller].gsub('cms/', '')
     end
-    
+        
   end
 end

@@ -2,7 +2,8 @@ class Category
   include Mongoid::Document
   field :name, :type => String
   field :slug
-  
+  field :homepage_id
+    
   before_create :generate_slug
   has_many :articles
   
@@ -27,6 +28,10 @@ class Category
   def find_limited_articles_by_month(month, count)
     articles = find_articles_by_month(month)
     month ? articles : articles.limit(Integer(count))
+  end
+  
+  def homepage
+    Page.find(homepage_id)
   end
   
 end

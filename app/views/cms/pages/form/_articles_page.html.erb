@@ -14,6 +14,18 @@
     <%= f.text_field :title %>
   </div>
 </div>
+
+<% if @group %>
+	
+	<div class='field'>
+	   <div>
+	    <%= f.check_box :group_specific %>
+			Only use articles from <%= @group.name %>
+	  </div>
+	</div>
+	
+<% end %>
+
 <div class="field">
   <%= f.label :category %><br />
 	<% cat = @page.category.id if @page.category %>

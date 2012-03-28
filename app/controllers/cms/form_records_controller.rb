@@ -20,7 +20,7 @@ module Cms
       form_record = FormRecord.find(params[:id])
       form = form_record.form
       form_record.destroy
-      redirect_to form_form_records_path(form)
+      redirect_to form_form_records_path(@group, form)
     end
   end
 end

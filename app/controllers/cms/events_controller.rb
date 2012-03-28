@@ -2,7 +2,8 @@ module Cms
   class EventsController < Cms::AdminController  
   
     def index   
-      @events = Event.all
+      events = @group ? @group.events : Event.top_level
+      @events = events.upcoming.asc(:start_time)
     end
 
     def show
@@ -24,18 +25,18 @@ module Cms
 
     def create
       if params[:event][:period] == "Does not repeat"      
-        @event = Event.create(params[:event])
+        event = Event.create(params[:event])
       else
-        events = EventSeries.new(params[:event])
-        @event_series = EventSeries.create(params[:event])
+        #events = EventSeries.new(params[:event])
+        event = EventSeries.create(params[:event])
       end
-      redirect_to events_path
+  		redirect_to events_path(@group), :notice => "Successfully created event"
     end
 
     def update
-      @event = Event.find(params[:id])
-      if @event.update_attributes(params[:event])
-        redirect_to(events_path, :notice => 'Event was successfully updated.')
+      event = Event.find(params[:id])
+      if event.update_attributes(params[:event])
+    		redirect_to events_path(@group), :notice => "Events was successfully updated"
       else
         flash[:error] = "There was an error updating the event"
         render :action => "edit"
@@ -46,7 +47,7 @@ module Cms
     def destroy
       @event = Event.find(params[:id])
       @event.destroy
-      redirect_to events_path
+      redirect_to events_path(@group)
     end
   
     def choose_layout

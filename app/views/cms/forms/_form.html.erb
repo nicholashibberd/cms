@@ -1,4 +1,5 @@
-<%= nested_form_for(@form) do |f| %>
+<%= nested_form_for @form, form_action_path(@group, @form) do |f| %>
+	<%= f.hidden_field :group_id, :value => @form.group_id ||= @group_id %>	
   <div class="field">
 	  <%= f.label :name %><br />
 	  <%= f.text_field :name %>

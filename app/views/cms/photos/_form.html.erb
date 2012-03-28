@@ -1,4 +1,9 @@
-<%= form_for(@photo, :html => {:multipart => true}) do |f| %>
+<%= form_for(@photo, {:html => {:multipart => true}}.merge(form_action_path(@group, @photo))) do |f| %>
+	<%= f.hidden_field :group_id, :value => @photo.group_id ||= @group_id %>	
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
   <div class="field">
     <%= f.label :caption %><br />
     <%= f.text_field :caption %>
@@ -11,7 +16,10 @@
     <%= f.label :cover_image %><br />
     <%= f.file_field :cover_image %>
   </div>
-
+	<div class="field">
+    <%= f.label :photo_type %><br />
+    <%= f.select :photo_type, options_for_select([['Content', 'content'], ['Background Image', 'background_image']], @photo.photo_type) %>
+  </div>
 	<% unless @photo.new_record? %>
 	 	<div>
 			<%= image_tag @photo.cover_image.thumb('x100').url %>

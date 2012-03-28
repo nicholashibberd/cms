@@ -1,13 +1,39 @@
-<div class="row">
-	
-	<% page_columns(@page).each_with_index do |column, index| %>
-	
-	  <div class="span<%= column %>">
-			<% @page.widgets.by_column((index + 1).to_s).order_by_position.each_with_index do |widget, index| %>
+<div class="<%= @page.template %>" id="edit_content_page">	
+	<% @page.regions.each do |region| %>
+		<div class="region" id="<%= region.slug %>">
+			
+			<% region.panels.each do |panel| %>
 
-				<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget, :column => column %>
-
-			<% end %>	
-	  </div>
+				<div class="row">
+					<div class="panel span12" id="<%= panel.id %>">
+					
+						<% if !panel.panels.empty? %>
+						
+							<div class="row">
+								<% panel.panels.each do |sub_panel| %>
+									<div class="sub_panel span<%= sub_panel.span %>" id="<%= sub_panel.id %>">
+										<% sub_panel.widgets.each do |widget| %>
+											<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+										<% end %>
+									</div>
+								<% end %>	
+							</div>
+								
+						<% else %>
+					
+							<% panel.widgets.each do |widget| %>
+								<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+							<% end %>
+					
+						
+						<% end %>
+									
+					</div>
+				</div>
+				
+			<% end %>
+			
+		</div>
 	<% end %>
+	
 </div>

@@ -2,7 +2,7 @@ module Cms
   class PhotosController < Cms::AdminController
 
     def index
-      @photos = Photo.all
+      @photos = @group ? @group.photos : Photo.top_level
     end
 
     def new
@@ -13,9 +13,9 @@ module Cms
     end
 
     def create
-      @photo = Photo.new(params[:photo])
-      if @photo.save
-        redirect_to photos_path, :notice => "Successfully created photo."
+      photo = Photo.new(params[:photo])
+      if photo.save
+    		redirect_to photos_path(@group), :notice => "Successfully created photo"
       else
         flash[:error] = "There was an error creating the photo"
         render :action => 'new'
@@ -27,9 +27,9 @@ module Cms
     end
 
     def update
-      @photo = Photo.find(params[:id])
-      if @photo.update_attributes(params[:photo])
-        redirect_to photos_path, :notice  => "Successfully updated photo."
+      photo = Photo.find(params[:id])
+      if photo.update_attributes(params[:photo])
+    		redirect_to photos_path(@group), :notice => "Successfully updated photo"
       else
         flash[:error] = "There was an error updating the photo"
         render :action => 'edit'
@@ -40,7 +40,7 @@ module Cms
       @photo = Photo.find(params[:id])
       @photo.destroy
 
-      redirect_to photos_path
+      redirect_to photos_path(@group)
     end
 
 

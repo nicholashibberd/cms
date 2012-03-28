@@ -8,4 +8,7 @@ class Person
   field :phone, :type => String
   
   has_many :articles
+  belongs_to :group
+  
+  scope :top_level, where(:group_id => nil)
 end

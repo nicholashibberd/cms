@@ -1,4 +1,5 @@
-<%= form_for@person do |f| %>
+<%= form_for @person, form_action_path(@group, @person) do |f| %>
+	<%= f.hidden_field :group_id, :value => @person.group_id ||= @group_id %>	
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>

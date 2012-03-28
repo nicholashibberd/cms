@@ -1,5 +1,5 @@
 <div class="new_instance_link">
-	<%= link_to 'New Form', new_form_path(@institution) %>
+	<%= link_to 'New Form', new_form_path(@group) %>
 </div>
 
 <h1>Forms</h1>
@@ -8,11 +8,11 @@
 	<% @forms.each do |form| %>
 		<div class="index_item form_index_item" id="form_<%= form.id %>">
 			<div class="controls">
-				<%= link_to 'View data', form_form_records_path(form) %>
-				<%= link_to 'Edit', edit_form_path(form) %>
-				<%= link_to 'Delete', form_path(form), :method => :delete, :confirm => 'Are you sure?' %>
+				<%= link_to 'View data', form_form_records_path(@group, form) %>
+				<%= link_to 'Edit', edit_form_path(@group, form) %>
+				<%= link_to 'Delete', form_path(@group, form), :method => :delete, :confirm => 'Are you sure?' %>
 			</div>
-			<%= link_to form.name, edit_form_path(form) %>
+			<%= link_to form.name, edit_form_path(@group, form) %>
 		</div>
 	<% end %>
 </div>

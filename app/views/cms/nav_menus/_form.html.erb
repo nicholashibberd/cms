@@ -1,4 +1,5 @@
 <%= form_for @nav_menu do |f| %>
+	<%= f.hidden_field :group_id, :value => @nav_menu.group_id ||= @group_id %>	
 	<div class="field">
 	  <%= f.label :name %><br />
 	  <%= f.text_field :name %>

@@ -24,9 +24,7 @@ module Cms
       @article = Article.new(params[:article])
       category = @article.category
       if @article.save
-        redirect_path = category ? category_path(category) : articles_path
-        notice_description = category ? category.name.singularize : 'Article'
-        redirect_to(redirect_path, :notice => "#{notice_description} was successfully created")
+        redirect_to(category_path(@group, category), :notice => "#{category.name.singularize} was successfully created")
       else
         flash[:error] = "There was an error creating the #{category.name.singularize}"
         render :action => "new"
@@ -37,9 +35,7 @@ module Cms
       @article = Article.find(params[:id])
       category = @article.category    
       if @article.update_attributes(params[:article])
-        redirect_path = category ? category_path(category) : articles_path
-        notice_description = category ? category.name.singularize : 'Article'
-        redirect_to(redirect_path, :notice => "#{notice_description} was successfully updated.")
+        redirect_to(category_path(@group, category), :notice => "#{category.name.singularize} was successfully updated.")
       else
         flash[:error] = "There was an error updating the #{category.name.singularize}"      
         render :action => "edit"
@@ -47,9 +43,10 @@ module Cms
     end
 
     def destroy
-      @article = Article.find(params[:id])
-      @article.destroy
-      redirect_to(articles_path)
+      article = Article.find(params[:id])
+      category = article.category
+      article.destroy
+      redirect_to category_path(@group, category)
     end
   
   end

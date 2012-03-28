@@ -3,11 +3,12 @@
 <head>
   <title>Cms</title>
   <%= stylesheet_link_tag    "cms/application" %>
-	<%= stylesheet_link_tag    "style" %>
+	<%#= stylesheet_link_tag    "style" %>
+	<%= stylesheet_link_tag    "pages.scss" %>
   <%= javascript_include_tag "cms/application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body id="admin">
 	<div id="wrapper">
 		<div class="container">
 			<div id="user_status">
@@ -16,7 +17,7 @@
 				<% end %>
 				<%= link_to 'View site', '/' %>
 			</div>
-	    <h1><%= site_name %></h1>
+	    <h1><%= site_name %><%= " - #{@group.name}" if @group %></h1>
 			<%= render 'layouts/cms/top_nav' %>	
 	    <div id="<%= current_controller %>_<%= request[:action] %>_content" class="content">
 				<!-- Flash message goes here -->

@@ -3,15 +3,14 @@
 	<%= stylesheet_link_tag 'slimbox2' %>
 <% end %>
 
-<div class="gallery widget" id="<%= widget.css_id %>">
+<div class="gallery widget <%= widget.display.downcase %>">
 	<% widget.photos.asc(:position).each do |photo| %>
 		<div class="gallery_item">
-			
 			<% if widget.display_in_lightbox == true %>
-				<%= link_to (image_tag photo.cover_image.thumb("#{image_width(column)}x>").url), photo.cover_image.url, :rel => "lightbox-gallery", :title => photo.caption %>
+				<%= link_to (image_tag photo.cover_image.thumb("#{widget.image_width}").url), photo.cover_image.url, :rel => "lightbox-gallery", :title => photo.caption %>
 			<% else %>
 				<% link_target = photo.link.blank? ? photo.photo.url : photo.link %>
-				<%= link_to (image_tag photo.cover_image.thumb("#{image_width(column)}x>").url), link_target, :title => photo.caption %>
+				<%= link_to (image_tag photo.cover_image.thumb("#{widget.image_width}").url), link_target, :title => photo.caption %>
 			<% end %>
 			
 			<% if widget.display_caption == true %>
@@ -21,5 +20,6 @@
 			<% end %>
 			
 		</div>
-	<% end %>		
+	<% end %>
+	<div class="spacer"></div>
 </div>

@@ -1,0 +1,5 @@
+<div id="<%= panel %>" class="span<%= column %> panel">
+	<% @page.widgets.by_panel(panel).each do |widget| %>
+		<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+	<% end %>
+</div>

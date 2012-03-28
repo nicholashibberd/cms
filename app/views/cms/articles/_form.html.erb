@@ -1,5 +1,6 @@
-<%= form_for @article do |f| %>
+<%= form_for @article, form_action_path(@group, @article) do |f| %>
 	<%= f.hidden_field :category_id, :value => (@category ? @category.id : nil) %>
+	<%= f.hidden_field :group_id, :value => @article.group_id ||= @group_id %>	
 	<div class="field">
 		<%= f.label :title %><br />
 		<%= f.text_field :title %>
@@ -15,7 +16,7 @@
 	<div class="field">
 		<%= f.label :author %><br />
 		<%= f.collection_select :person_id, Person.all, :id, :name %>
-	</div>
+	</div>	
 	<div class="field">
 		<% @article.comments.each do |comment| %>
 			<div class="article_comment">
@@ -24,7 +25,7 @@
 					<%= comment.author %>					
 				</div>
 				<div class="controls">
-					<%= link_to 'Edit', edit_article_comment_path(@institution, @article, comment) %>
+					<%= link_to 'Edit', edit_article_comment_path(@group, @article, comment) %>
 				</div>
 			</div>
 		<% end %>

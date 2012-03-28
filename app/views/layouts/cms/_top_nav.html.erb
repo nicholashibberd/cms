@@ -7,7 +7,38 @@
 	<%= link_to 'People', people_path %>
 	<%= link_to 'Events', events_path %>	
 	<%= link_to 'Photos', photos_path %>	
+	<%= link_to 'Documents', documents_path %>	
 	<% Category.all.each do |category| %>
-		<%= link_to category.name, category %>
+		<%= link_to category.name, category_path(nil, category) %>
 	<% end %>
+	<%= link_to 'Site', 'site/edit' %>	
 </div>	
+
+<% if @group %>
+	<div id="group_nav">
+		<%= link_to 'Pages', pages_path(@group) %>
+		<%= link_to 'Forms', forms_path(@group) %>
+		<%= link_to 'Photos', photos_path(@group) %>
+		<%= link_to 'Navigation', nav_menus_path(@group) %>
+		<%= link_to 'People', people_path(@group) %>		
+		<%= link_to 'Events', events_path(@group) %>		
+		<%= link_to 'Documents', documents_path(@group) %>		
+		<% Category.all.each do |category| %>
+			<%= link_to category.name, category_path(@group, category) %>
+		<% end %>
+	</div>
+<% end %>
+
+
+
+
+
+<!--
+
+<%# if Group.count > 0 %>
+	<div id="group_nav">
+		<%# Group.all.each do |group| %>
+			<%#= link_to group.name, group_path(group) %>
+		<%# end %>
+	</div>
+<%# end %>-->

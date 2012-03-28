@@ -1,3 +1,5 @@
-<% main_navigation.nav_items.each do |nav_item| %>
-	<%= link_to nav_item.name %>
+<% if main_navigation(@group) %>
+	<% main_navigation(@group).nav_items.each do |nav_item| %>
+		<%= nav_link(nav_item) %>
+	<% end %>
 <% end %>

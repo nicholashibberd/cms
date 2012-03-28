@@ -23,6 +23,12 @@ module Cms
         end
       end
     end
+    
+    def form_action_path(group, instance)
+      action = instance.new_record? ? 'create' : 'update'
+      group_id = group ? group.slug : nil
+      {:url => {:controller => instance.class.to_s.tableize, :action => action, :group_id => group_id}}
+    end
 
   end
 end

@@ -1,7 +1,7 @@
 class NavItem
   include Mongoid::Document
   field :name
-  field :target
+  field :link_target
   field :position
   field :link_type
   

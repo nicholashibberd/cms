@@ -1,0 +1,14 @@
+<%= form_for @document, {:html => {:multipart => true}}.merge(form_action_path(@group, @document)) do |f| %>
+	<%= f.hidden_field :group_id, :value => @document.group_id ||= @group_id %>	
+	<div class="field">
+		<%= f.label :title %><br />
+		<%= f.text_field :title %>
+	</div>
+	<div class="field">
+		<%= f.label :document %><br />
+		<%= f.file_field :pdf %>
+	</div>  
+	<div class="button confirm_button">
+  	<%= f.submit %>
+	</div>
+<% end -%>

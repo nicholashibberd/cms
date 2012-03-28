@@ -1,11 +1,11 @@
 <div class='field'>
-    <div>
-	    <%= f.label :name %>
-	  </div>
-    <div>
-	    <%= f.text_field :name %>
-	  </div>
-	</div>
+   <div>
+    <%= f.label :name %>
+  </div>
+   <div>
+    <%= f.text_field :name %>
+  </div>
+</div>
 <div class='field'>
    <div>
     <%= f.label :title %>
@@ -19,6 +19,6 @@
     <%= f.label :template %>
   </div>
    <div>
-    <%= f.select :template, options_for_select(['12x0', '8x4', '7x5', '5x7', '4x8', '4x4x4'], @page.template) %>
+    <%= f.select :template, options_for_select([['Template 1', 'template1'], ['Template 2', 'template2']], @page.template) %>
   </div>
 </div>

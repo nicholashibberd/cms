@@ -8,7 +8,7 @@ module Cms
   
     def show
       @category = Category.find_by_slug(params[:id])
-      @articles = @category.articles
+      @articles = @group ? @category.articles.by_group(@group.id) : @category.articles.top_level
     end
     
     def index

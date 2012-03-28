@@ -1,6 +1,7 @@
 class ArticlesPage < Page
   field :number_to_display, :type => Integer, :default => 5
   field :snippet_size, :type => Integer, :default => 300
+  field :group_specific, :type => Boolean, :default => false
   belongs_to :category
   
   def articles(month)

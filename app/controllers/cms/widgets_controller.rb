@@ -23,21 +23,21 @@ module Cms
     def create
       @page = Page.find_by_slug(params[:page_id])
       @page.add_widget(params)
-      redirect_to edit_page_path(@page)
+      redirect_to edit_page_path(@group, @page)
     end
 
     def update
       @page = Page.find_by_slug(params[:page_id])
       @widget = @page.find_widget(params[:id])
       @page.update_widget(params)
-      redirect_to edit_page_path(@page)
+      redirect_to edit_page_path(@group, @page)
     end
 
     def destroy
       @widget = Widget.find(params[:id])
       page = @widget.page
       @widget.destroy
-      redirect_to edit_page_path(page)
+      redirect_to edit_page_path(@group, page)
     end
       
   end

@@ -1,4 +1,5 @@
-<%= form_for @event do |f| %>
+<%= form_for @event, form_action_path(@group, @event) do |f| %>
+	<%= f.hidden_field :group_id, :value => @event.group_id ||= @group_id %>	
   <div class="field">
     <%= f.label :title %><br />
     <%= f.text_field :title %>

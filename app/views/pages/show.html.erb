@@ -1,1 +1,9 @@
+<%= content_for :background_image do %>
+	<%= background_image(@page) %>
+<% end %>
+
+<% unless @page.header.blank? %>
+	<h1><%= @page.header %></h1>
+<% end %>
+
 <%= render_page_template(@page, 'show') %>

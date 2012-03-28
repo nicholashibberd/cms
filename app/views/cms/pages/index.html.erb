@@ -1,5 +1,9 @@
 <div class='new_instance_link'>
-  <%= link_to 'New page', new_page_path %>
+  <%= link_to 'New homepage', new_page_path(@group, :page_type => 'homepage') %>	
+  <%= link_to 'New content page', new_page_path(@group, :page_type => 'content') %>
+	<%= link_to 'New articles page', new_page_path(@group, :page_type => 'articles') %>
+	<%= link_to 'New calendar page', new_page_path(@group, :page_type => 'calendar') %>
+	<%= link_to 'New profile page', new_page_path(@group, :page_type => 'profile') %>	
 </div>
 
 <h1>Pages</h1>
@@ -7,10 +11,10 @@
 	<% @pages.each do |page| %>
     <div class="index_item">
 			<div class="controls">
-				<%= link_to 'Delete', page_path(page), :method => :delete, :confirm => 'Are you sure?' %>							
+				<%= link_to 'Delete', page_path(@group, page), :method => :delete, :confirm => 'Are you sure?' %>							
 				<%= link_to 'View', host_page_path(page) %>
 			</div>
-			<%= link_to "#{page.name} (#{page.page_type.titleize})", edit_page_path(page) %>
+			<%= link_to "#{page.name} (#{page.page_type.titleize})", edit_page_path(@group, page) %>
 		</div>
 	<% end %>
 </div>

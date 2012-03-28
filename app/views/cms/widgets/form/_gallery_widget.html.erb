@@ -14,6 +14,11 @@
 </div>
 
 <div class="field">
+  <%= f.label :width %><br />
+  <%= f.text_field :width %>
+</div>
+
+<div class="field">
   <%= f.label :photos %><br />
 	<% Photo.all.in_groups_of(3, false).each do |row| %>
 		<div class="gallery_widget_row">

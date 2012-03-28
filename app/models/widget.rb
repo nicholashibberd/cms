@@ -2,13 +2,14 @@ class Widget
   include Mongoid::Document
   field :position, :type => Integer, :default => 1000
   field :css_id
-  field :column, :default => '1'
-  belongs_to :page
+  field :panel_id
   
-  referenced_in :page, :inverse_of => :widgets
+  belongs_to :page
+  belongs_to :panel
   
   scope :order_by_position, order_by(:position => :asc)
-  scope :by_column, lambda {|column| where(:column => column)}
+  scope :by_panel, lambda {|panel_id| where(:panel_id => panel_id)}
+  scope :by_region, lambda {|region| where(:region => region)}
       
   def widget_type
     self._type.underscore

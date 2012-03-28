@@ -1,67 +1,127 @@
-<div class="row" id="sortable_widgets">
-	<% page_columns(@page).each_with_index do |column, index| %>
-		<div class="span<%= column %> connectedSortable" id="sortable<%= index + 1 %>">
-			<% @page.widgets.by_column((index + 1).to_s).order_by_position.each_with_index do |widget, index| %>
-					<div class="widget sortable_widget" id="<%= widget.id %>">
-						<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget, :column => column %>
+<div class="<%= @page.template %>" id="edit_content_page">	
+	<% @page.regions.each do |region| %>
+		<div class="region" id="<%= region.slug %>">
+			
+			<% region.panels.each do |panel| %>
 
-						<!-- Modal edit screen	-->
-						<div class="edit_widget">
-							<button class="btn" data-toggle="modal" data-target="#column_one_<%= widget.id %>">Edit</button>
-							<div class="modal fade" id="column_one_<%= widget.id %>">
-							  <div class="modal-header">
-							    <a class="close" data-dismiss="modal">×</a>
-							    <h3>Edit <%= widget.widget_type.titleize %></h3>
-							  </div>
-							  <div class="modal-body">
-									<%= render "cms/widgets/form", :widget => widget %>
-							  </div>
-								<div>
-									<%= button_to 'Delete', page_widget_path(@page, widget), :method => :delete, :class => 'btn-danger' %>
-								</div>
-							  <div class="modal-footer">
-							    <a href="#" class="btn btn-primary">Save changes</a>
-							    <a href="#" class="btn" data-dismiss="modal">Close</a>
-							  </div>
-							</div>
-						</div>
-						<!-- End Modal edit screen	-->
-					</div><!-- End div.sortable_widget	-->
+				<div class="row">
+					<div class="panel span<%= panel.span %>" id="<%= panel.id %>">
 					
+						<% if !panel.panels.empty? %>
+						
+							<div class="row">
+								<% panel.panels.each do |sub_panel| %>
+									<div class="sub_panel span<%= sub_panel.span %>" id="<%= sub_panel.id %>">
+										<% sub_panel.widgets.each do |widget| %>
+											<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+										<% end %>
+										<%= render "cms/pages/edit/add_widget_links", :panel => sub_panel, :region => region %>																				
+									</div>
+								<% end %>	
+							</div>
+								
+						<% else %>
+					
+							<% panel.widgets.each do |widget| %>
+								<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+							<% end %>
+							<%= render "cms/pages/edit/add_widget_links", :panel => panel, :region => region %>												
+					
+						
+						<% end %>
+						<%#= link_to 'Remove panel', '#', :class => 'remove_panel_button' -%>
+
+					</div>
+				</div>
+				
 			<% end %>
+			
+			<%#= form_tag '/cms/pages/add_panel', :remote => true do %>
+			<%= form_tag '/cms/pages/add_panel' do %>
+				<%= hidden_field_tag 'region', region.slug %>
+				<%= hidden_field_tag 'id', params[:id] %>
+				<%= submit_tag 'Add Panel' %>
+			<% end %>
+			
+			<%#= link_to 'Add panel', '#', :class => 'add_panel_button' -%>
 		</div>
 	<% end %>
-</div>
-
-<div>
-	<button id="order_widgets_button" class="btn">Save order</button>
-</div>
-
-<%= javascript_tag do %>
-	$( "#sortable1, #sortable2, #sortable3" ).sortable({
-		connectWith: ".connectedSortable",
-		items: 'div.sortable_widget',
-		dropOnEmpty: true
-	});
 	
-	$('button#order_widgets_button').click(function(){
+</div>
+
+
+<!-- <div>
+	<%#= link_to 'Save layout', '#', :id => 'save_layout_link' %>
+</div> -->
+
+<!-- 
+<%#= javascript_tag do %>
+	$('a#save_layout_link').click(function(){
+		
 		$.ajax({
-     	 type: 'post', 
-       data: {
-			   'widgets[1]': get_widget_ids($('#sortable1').children()),
-				 'widgets[2]': get_widget_ids($('#sortable2').children()),
-				 'widgets[3]': get_widget_ids($('#sortable3').children())
+	   	 type: 'post', 
+	     data: {
+				 'page_id': '<%#= params[:id] %>',
+			   'page': page_data()
 				},
-       dataType: 'script', 
-       url: '/cms/order_widgets/'});
+	     dataType: 'script', 
+	     url: '/cms/pages/layout'
+		});
+		return false;
 	});
 	
-	function get_widget_ids(children) {
-		ids = [];
-		children.each(function() {
-			ids.push($(this).attr('id'))
-		});
-		return ids;
+	function page_data() {
+		page = {}
+		page['regions'] = get_regions();
+		return page;
 	}
 	
-<% end %>
+	function get_regions() {
+		var regions = []
+		$('div.region').each(function(index) {
+			var region = {}
+			region['name'] = $(this).attr('id');			
+			region['panels'] = get_panels($(this));
+			regions[index] = region;
+		})
+		return regions;
+	}
+	
+	function get_panels(region) {
+		var panels = []
+		region.children('div.panel').each(function() {
+			var panel = {}
+			panel['name'] = $(this).attr('id');
+			panel['widget_ids'] = get_widget_ids($(this));
+			panels.push(panel);
+		})
+		return panels;
+	}
+	
+	function get_widget_ids(panel) {
+		var widget_ids = []
+		panel.children('div.widget').each(function() {
+			widget_ids.push($(this).attr('id'));
+		})
+		return widget_ids;
+	}
+	
+	$('.add_panel_button').click(function() {
+		var region = $(this).parent('.region')
+		var new_panel_id = region.children('div.panel').length + 1;
+		var new_panel = $('div.hide .panel').attr('id', 'panel' + new_panel_id).parent().html();
+		region.append(new_panel);
+		$('div.hide .panel').removeAttr('id')		
+		$('#panel' + new_panel_id + ' #add_widget_links a').each(function() {
+			var current_link = $(this).attr('href');
+			$(this).attr('href', current_link + '&region=' + region.attr('id') + '&panel=panel' + new_panel_id);
+		})	
+		return false;
+	})
+	
+	$('.remove_panel_button').click(function() {
+		$(this).parent('div.panel').remove();
+		return false;
+	})	
+	
+<%# end %> -->
