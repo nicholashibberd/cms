@@ -7,11 +7,11 @@ require "cms/version"
 Gem::Specification.new do |s|
   s.name        = "cms"
   s.version     = Cms::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Cms."
-  s.description = "TODO: Description of Cms."
+  s.authors     = ["Nick Hibberd"]
+  s.email       = ["nicholashibberd@gmail.com"]
+  s.homepage    = "https://nicholashibberd@github.com/nicholashibberd/cms.git"
+  s.summary     = "Rails Engine for plugging a simple cms into a new site"
+  s.description = "Rails Engine for plugging a simple cms into a new site"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
