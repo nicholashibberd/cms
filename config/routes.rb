@@ -42,6 +42,7 @@ Cms::Engine.routes.draw do
     end
   end
   
+  match '/', :to => 'admin#home', :as => :cms
   match '/home', :to => 'admin#home', :as => :admin_home
   match '/signin', :to => 'sessions#new', :as => :signin
   match '/signout', :to => 'sessions#destroy', :as => :signout
