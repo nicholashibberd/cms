@@ -1,9 +1,16 @@
-<h1>New Page</h1>
-<%= nested_form_for @page, :url => pages_path(@group) do |f| %>
-	<%= hidden_field_tag :page_type, @page.page_type %>
-	<%= f.hidden_field :group_id, :value => @group_id %>
-	<%= render "cms/pages/form/#{@page.page_type}", :f => f %>
-	<div class='field'>
-	  <%= f.submit 'Save' %>
-	</div>
-<% end %>
+<div class="page_header">
+	<h1>New Page</h1>
+</div>
+
+<section class="page_content">
+	<section>
+		<%= nested_form_for @page, :url => pages_path(@group) do |f| %>
+			<%= hidden_field_tag :page_type, @page.page_type %>
+			<%= f.hidden_field :group_id, :value => @group_id %>
+			<%= render "cms/pages/form/#{@page.page_type}", :f => f %>
+			<div class='field'>
+			  <%= f.submit :class => 'btn btn-success' 'Save', :class => 'btn btn-success' %>
+			</div>
+		<% end %>
+	</section>
+</section>

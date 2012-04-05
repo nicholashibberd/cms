@@ -1,16 +1,19 @@
-<div class='new_instance_link'>
+<div class='top_right_controls'>
   <%= link_to 'New category', new_category_path %>
 </div>
 
-<h1>Categories</h1>
-<div>
+<header>
+	<h1>Categories</h1>
+</header>
+
+<section>
 	<% @categories.each do |category| %>
     <div class="index_item">
 			<div class="controls">
-				<%= link_to 'Delete', category_path(category), :method => :delete, :confirm => 'Are you sure?' %>							
-				<%= link_to 'Edit', edit_category_path(category) %>
+				<%= link_to 'Delete', category_path(category), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>							
+				<%= link_to 'Edit', edit_category_path(category), :class => 'btn btn-warning' %>
 			</div>
 			<%= link_to category.name, edit_category_path(category) %>
 		</div>
 	<% end %>
-</div>
+</section>

@@ -1,6 +1,12 @@
-<h1>Documents</h1>
+<div class="top_right_controls">
+	<%= link_to 'New Document', new_document_path(@group), :class => 'btn btn-info' %>
+</div>
 
-<div>
+<div class="page_header">
+	<h1>Documents</h1>
+</div>
+
+<section class="page_content">
 	<% @documents.each do |document| %>
 		<div class="index_item document_index_item" id="document_<%= document.id %>">
 			<div class="controls">
@@ -11,8 +17,4 @@
 			<%= link_to document.title, edit_document_path(@group, document) %>
 		</div>
 	<% end %>
-</div>
-
-<div class="button new_button">
-	<%= link_to 'New Document', new_document_path(@group) %>
-</div>
+</section>

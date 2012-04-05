@@ -1,9 +1,9 @@
-require 'myengine'
+#require 'myengine'
 require 'redcarpet'
 require 'twitter-bootstrap-rails'
 require 'later_dude'
 require 'truncate_html'
-require 'mongoid_paperclip'
+#require 'mongoid_paperclip'
 require 'tinymce-rails'
 
 

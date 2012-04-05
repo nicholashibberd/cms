@@ -2,30 +2,94 @@
 Layout
 *****************************/
 
+@import "mixins";
+$dark_blue: #333844;
 
 body#admin {
-	background-color: #eee;
 	
-	.bodycontent {
-		background:red;
+	#background {
+		position: absolute;
+		z-index: -1;
+		width: 100%;
+		
+		#background_header {
+			height: 140px;
+      @include gradiented(#4C5260, #090E16);
+		}
+		
+		#background_nav {
+			height: 70px;
+      @include gradiented(#FFF, #E1DED3);			
+		}
 	}
 	
-	#wrapper {
-		padding-top: 20px;
-		background-color: #fff;
-		width: 1000px;
-		margin: auto;
+	header {
+		margin-top: 20px;
+		h1 {
+			color: #fff;
+			margin-bottom: 27px;
+		}
 	}
 
+	.page_header {
+		h1 {
+			font-size: 24px;
+			padding-bottom: 10px;
+			margin-bottom: 20px;
+		}
+	}
+	
+	section {
+		margin-bottom: 30px;
+		background: #fff;
+		
+		h2 {
+			color: $dark_blue;
+			padding-bottom: 10px;
+			border-bottom: 1px dotted #ccc;
+			margin-bottom: 20px;
+			font-size: 20px;
+		}
+	}
+	
+	section.page_content {
+		padding-top: 40px;
+	}
+		
+	#wrapper {
+		padding-top: 20px;
+		width: 980px;
+		margin: auto;
+	}
+	
 	#user_status {
 		float: right;
 	}
 
-	#top_nav {
+	
+	/*****************************
+	Nav
+	*****************************/
+
+	nav {
 		margin: 10px 0;
-		height: 20px;
-		background: #333;
-		padding: 10px;
+		height: 42px;
+		
+		a {
+			display: block;
+			float: left;
+			color: #fff;
+			font-size: 14px;			
+			padding: 10px 20px;
+		}
+		
+		a.selected {
+      @include gradiented(#E1DED3, #FFF);			
+			@include rounded;
+			border: 1px solid #fff;
+			color: $dark_blue;
+			font-weight: bold;
+		}
 	}
 
 	#group_nav {
@@ -33,36 +97,46 @@ body#admin {
 		height: 20px;
 		background: #3399CC;
 		padding: 10px;
-	}
+		
+		a {
+			display: block;
+			float: left;
+			margin-right: 30px;
+			color: #fff;
+			font-size: 14px;			
+		}
+	}	
 
-	#top_nav a, #group_nav a {
-		display: block;
-		float: left;
-		margin-right: 20px;
-		color: #fff;
-	}
-
-	.new_instance_link {
-		margin-top: 20px;
+	.top_right_controls {
 		float: right;
+		margin-top: 5px;
 	}
+	
+	h2.page_section {
+		background: #eee;
+		padding: 10px 20px;
+		margin-bottom: 20px;
+	} 
 	
 	/*****************************
 	Index
 	*****************************/
 
 	.index_item {
-		margin-bottom: 10px;
+		padding: 20px 0;
 		position: relative;
+		border-bottom: 1px dotted #ccc;
+		font-size: 14px;
 	}
 
 	.controls {
 		float: right;
+		margin-top: -5px;
 	}
 
 	.controls a {
 		float: right;
-		margin-left: 20px;
+		margin-left: 10px;
 	}
 
 	/*****************************
@@ -75,7 +149,11 @@ body#admin {
 	}
 
 	.field {
-		margin-bottom: 20px;
+		margin-bottom: 15px;
+		
+		label {
+			font-weight: bold;
+		}
 	}
 
 	.field .fields {
@@ -124,16 +202,12 @@ body#admin {
 	}
 
 	.flash_item.notice {
-		background: #3399CC;
-		background: -webkit-gradient(linear, left top, left bottom, from(#85CBF9), to(#3399CC));
-		background: -moz-linear-gradient(top,  #85CBF9,  #3399CC);
+    @include gradiented(#85CBF9, #3399CC);
 		color: #fff;
 	}
 
 	.flash_item.error {
-	  background-color: #CC0000;
-	  background: -webkit-linear-gradient(top, #FD8C8C, #CC0000);
-	  background: -moz-linear-gradient(top, #FD8C8C, #CC0000);
+    @include gradiented(#FD8C8C, #CC0000);	
 	}
 
 	/****************************************************
