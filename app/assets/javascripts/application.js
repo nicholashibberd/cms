@@ -5,6 +5,5 @@
 // the compiled file.
 //
 //= require cms/jquery-1.7.1.min
-//= require twitter/bootstrap
 //= require_tree .
 //= require tinymce-jquery

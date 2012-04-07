@@ -1,4 +1,3 @@
-#require 'myengine'
 require 'redcarpet'
 require 'twitter-bootstrap-rails'
 require 'later_dude'

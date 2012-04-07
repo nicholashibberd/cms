@@ -60,6 +60,7 @@ Cms::Engine.routes.draw do
 end
 
 Rails.application.routes.draw do
+  
   resources :articles do
     resources :comments
   end
@@ -72,6 +73,6 @@ Rails.application.routes.draw do
   get '/events/:id', :to => 'events#show', :as => :host_event
   post 'form/:form_id/form_records', :to => 'cms/form_records#create', :as => :create_form_record
   match '/media/:file_name', :to => Dragonfly[:images]
-  match '/', :to => 'pages#show', :as => :root
+  match '/', :to => 'pages#home', :as => :root
   match '/:id', :to => 'pages#group_homepage', :as => :group_homepage
 end
