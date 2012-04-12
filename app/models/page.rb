@@ -8,8 +8,7 @@ class Page
   #field :panels, :type => Integer, :default => 1
   field :header
 
-  has_many :regions  
-  has_many :panels
+  has_many :rows
   has_many :widgets  
   has_and_belongs_to_many :photos
   belongs_to :group

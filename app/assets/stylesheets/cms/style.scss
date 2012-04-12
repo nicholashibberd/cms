@@ -25,10 +25,37 @@ body#admin {
 	
 	header {
 		margin-top: 20px;
+		position: relative;
 		h1 {
 			color: #fff;
 			margin-bottom: 27px;
 		}
+		
+		#admin_top_right {
+			position: absolute;
+			top: -18px;
+			right: 0px;
+			text-align: right;
+			font-size: 14px;					
+			
+			a, a:visited {
+				color: #E6E3DA;
+			}
+			
+			#group_nav {
+				float: right;
+				height: 20px;
+				margin-top: 10px;
+
+				a {
+					display: block;
+					float: left;
+					margin-left: 30px;
+				}
+			}	
+			
+		}
+		
 	}
 
 	.page_header {
@@ -61,10 +88,6 @@ body#admin {
 		width: 980px;
 		margin: auto;
 	}
-	
-	#user_status {
-		float: right;
-	}
 
 	
 	/*****************************
@@ -91,21 +114,6 @@ body#admin {
 			font-weight: bold;
 		}
 	}
-
-	#group_nav {
-		margin: 10px 0;
-		height: 20px;
-		background: #3399CC;
-		padding: 10px;
-		
-		a {
-			display: block;
-			float: left;
-			margin-right: 30px;
-			color: #fff;
-			font-size: 14px;			
-		}
-	}	
 
 	.top_right_controls {
 		float: right;
@@ -164,7 +172,31 @@ body#admin {
 		float: left;
 		margin-right: 20px;
 	}
+	
+	#template_items {
+		
+		label {
+			margin-bottom: 20px;
+		}
+		
+		.template_row {
+			margin-bottom: 20px;
+			height: 200px;
+			
+			.template_item {
+				float: left;
+				margin-right: 20px;
 
+				img {
+					box-shadow: 0px 0px 3px #999;
+					margin-left: 10px;
+				}
+			}			
+		}
+		
+		
+	}
+	
 	/****************************************************
 	Photos
 	*****************************************************/
@@ -258,29 +290,19 @@ body#admin {
 		height: 200px;
 	}
 		
-	#edit_content_page {
-
-		.region {
-			background: #ccc;
-			position: relative;
-
-			.panel {
+	.edit.container {
+		
+		.row {
+			
+			.column {
 				background: #eee;
-				margin-bottom: 15px;
-				
-				.sub_panel {
-					background: #fff;
-					margin-bottom: 15px;					
-				}
+				min-height: 100px;
+				margin-bottom: 20px;
 			}
-
-			.add_panel_button {
-				position: absolute;
-				bottom: 5px;
-			}
+			
 		}
+		
 	}
-
 	
 	
 	/****************************************************

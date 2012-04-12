@@ -17,11 +17,22 @@
 	
 	<div id="wrapper">			
 		<header>
-			<div id="user_status">
-				<% if current_user %>
-				<%= current_user.name %>: <%= link_to "Sign out", signout_path, :id => 'signout_link' %> | 
-				<% end %>
-				<%= link_to 'View site', '/', :class => 'btn' %>
+			<div id="admin_top_right">
+				<div id="user_status">
+					<% if current_user %>
+						<%= current_user.name %>: <%= link_to "Sign out", signout_path, :id => 'signout_link' %> | 
+					<% end %>
+					<%= link_to 'View site', '/' %>
+				</div>
+				
+				<% if Group.count > 0 %>
+					<div id="group_nav">
+						<%= link_to 'Admin home', admin_home_path %>
+						<% Group.all.each do |group| %>
+							<%= link_to group.name, group_path(group) %>
+						<% end %>
+					</div>
+				<% end %>				
 			</div>
 	    <h1><%= site_name %><%= " - #{@group.name}" if @group %></h1>
 		</header>
@@ -38,8 +49,8 @@
 		      </ul>
 		    </div>
 		  <% end %>
-
-      <%= yield %>
+			
+			<%= yield %>
     </div>
 	</div>
 </body>

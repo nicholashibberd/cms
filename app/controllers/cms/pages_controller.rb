@@ -32,7 +32,7 @@ module Cms
         else ContentPage.new(params[:content_page])
       end
       if page.save
-    		redirect_to pages_path(@group), :notice => "Successfully created page"
+    		redirect_to edit_page_path(@group, page)
       else
         flash[:error] = "There was an error creating the page"
         render :action => 'new'
@@ -73,6 +73,12 @@ module Cms
       page = Page.find_by_slug(params[:id])
       region = page.regions.by_slug(params[:region])
       region.add_panel
+      redirect_to :back
+    end
+
+    def add_row
+      page = Page.find_by_slug(params[:id])
+      page.create_rows(params[:template])
       redirect_to :back
     end
 

@@ -8,7 +8,7 @@
 </div>
 <div class='field'>
    <div>
-    <%= f.label :title %>
+    <%= f.label :title_tag %>
   </div>
    <div>
     <%= f.text_field :title %>
@@ -16,9 +16,33 @@
 </div>
 <div class='field'>
    <div>
-    <%= f.label :template %>
+    <%= f.label :on_page_header %>
   </div>
    <div>
-    <%= f.select :template, options_for_select([['Template 1', 'template1'], ['Template 2', 'template2']], @page.template) %>
+    <%= f.text_field :header %>
   </div>
+</div>
+<div class='field' id="template_items">
+	 <div>
+    <%= f.label :template %>
+  </div>
+	<div class="template_row">
+	   <div class="template_item">
+			<%= f.radio_button :template, 'template1' %> <%= image_tag 'cms/sanderstead_parish/templates/template1.jpg' %>
+	  </div>
+	   <div class="template_item">
+			<%= f.radio_button :template, 'template2' %> <%= image_tag 'cms/sanderstead_parish/templates/template2.jpg' %>
+	  </div>
+	   <div class="template_item">
+			<%= f.radio_button :template, 'template3' %> <%= image_tag 'cms/sanderstead_parish/templates/template3.jpg' %>
+	  </div>
+	</div>
+	<div class="template_row">
+	   <div class="template_item">
+			<%= f.radio_button :template, 'template4' %> <%= image_tag 'cms/sanderstead_parish/templates/template4.jpg' %>
+	  </div>
+	   <div class="template_item">
+			<%= f.radio_button :template, 'template5' %> <%= image_tag 'cms/sanderstead_parish/templates/template5.jpg' %>
+	  </div>
+	</div>
 </div>

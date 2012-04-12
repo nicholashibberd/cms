@@ -7,40 +7,50 @@
 </div>
 
 <section>
-	<h2>Page information</h2>
+	<h2><a href="#" data-toggle="collapse" data-target="#page_info_form">Page information</a></h2>
 
-	<%= nested_form_for @page, :url => page_path(@group, @page) do |f| %>
-		<%= hidden_field_tag :page_type, @page.page_type %>
-		<%= f.hidden_field :group_id %>
-		<div class='field'>
-		   <div>
-		    <%= f.label :header %>
-		  </div>
-		   <div>
-		    <%= f.text_field :header %>
-		  </div>
-		</div>
-		<%= render "cms/pages/form/#{@page.page_type}", :f => f %>
-	
-		<!-- Background Images -->
-		<div class="field" id="background_images">
-		  <% Photo.background_images.each do |photo| %>
-		    <div>
-					<div>
-			    	<%= check_box_tag "#{@page.page_type}[photo_ids][]", photo.id, @page.photos.include?(photo) %>
-					</div>
-					<%= image_tag photo.cover_image.thumb('200x').url %>
-		    </div>
-		  <% end %>
-		</div>
-	
-		<div class='field'>
-		  <%= f.submit :class => 'btn btn-success' 'Save' %>
-		</div>
-	<% end %>
+	<div id="page_info_form" class="collapse">
+		<%= nested_form_for @page, :url => page_path(@group, @page) do |f| %>
+			<%= hidden_field_tag :page_type, @page.page_type %>
+			<%= f.hidden_field :group_id %>
+			<%= render "cms/pages/form/#{@page.page_type}", :f => f %>
+		
+			<div class='field'>
+			  <%= f.submit 'Save page information', :class => 'btn btn-success' %>
+			</div>
+		<% end %>
+	</div>
 </section>
 
 <section>
+	<h2><a href="#" data-toggle="collapse" data-target="#background_images_form">Background Images</a></h2>
+
+	<div id="background_images_form" class="collapse">
+		<%= form_for @page, :url => page_path(@group, @page) do |f| %>
+			<%= hidden_field_tag :page_type, @page.page_type %>
+			<%= f.hidden_field :group_id %>
+	
+			<!-- Background Images -->
+			<div class="field" id="background_images">
+			  <% Photo.background_images.each do |photo| %>
+			    <div>
+						<div>
+				    	<%= check_box_tag "#{@page.page_type}[photo_ids][]", photo.id, @page.photos.include?(photo) %>
+						</div>
+						<%= image_tag photo.cover_image.thumb('200x').url %>
+			    </div>
+			  <% end %>
+			</div>
+	
+			<div class='field'>
+			  <%= f.submit  'Save background images', :class => 'btn btn-success' %>
+			</div>
+		<% end %>
+	</div>
+</section>
+
+<section>
+	<h2>Page content</h2>
 	<% unless @page.new_record? %>
 		<%= render_page_template(@page, 'edit') %>	
 	<% end %>

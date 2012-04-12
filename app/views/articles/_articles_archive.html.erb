@@ -1,11 +1,8 @@
 <div id="articles_archive">
 	<h2><%= category.name %> Archive</h2>
-	<% (0..11).each do |number_of_months| %>
-		<% month = (Date.today - number_of_months.months) %>
-			<% unless page.articles(month.strftime('%m-%Y')).empty? %>				
-			<div class="articles_archive_month">
-				<%= link_to (l month, :format => :month_name_year), artilces_path(:month => (l month, :format => :month_year)) %>
-			</div>
-		<% end %>
+	<% Article.months_with_articles(category, group).each do |month| %>
+		<div class="articles_archive_item ">
+			<%= link_to month.strftime('%B %Y'), group_category_articles_path(group, category, :month => month.strftime('%m-%Y')) %>
+		</div>
 	<% end %>
 </div>

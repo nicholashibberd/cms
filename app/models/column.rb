@@ -3,6 +3,12 @@ class Column
   
   field :span
   
-  embedded_in :panel, :inverse_of => :columns
+  belongs_to :row
+  has_many :rows
   has_many :widgets
+  
+  def add_row
+    rows.create
+  end
+  
 end

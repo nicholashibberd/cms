@@ -37,5 +37,9 @@ class Group
   def homepage
     homepage_id ? Page.find(homepage_id) : pages.first
   end
+  
+  def admin_nav
+    nav_menus.where(:menu_type => 'admin').first
+  end
 
 end

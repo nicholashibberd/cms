@@ -1,127 +1,52 @@
-<div class="<%= @page.template %>" id="edit_content_page">	
-	<% @page.regions.each do |region| %>
-		<div class="region" id="<%= region.slug %>">
-			
-			<% region.panels.each do |panel| %>
-
-				<div class="row">
-					<div class="panel span<%= panel.span %>" id="<%= panel.id %>">
-					
-						<% if !panel.panels.empty? %>
+<section>
+	<div class="container edit">
+		<% @page.rows.each_with_index do |row, row_index| %>
+		
+			<div class="row" id="row<%= row_index %>">
+				<% row.columns.each_with_index do |column, column_index| %>
+				
+					<div class="span<%= column.span %> column column<%= column_index %>" id="row<%= row_index %>_column<%= column_index %>">
 						
-							<div class="row">
-								<% panel.panels.each do |sub_panel| %>
-									<div class="sub_panel span<%= sub_panel.span %>" id="<%= sub_panel.id %>">
-										<% sub_panel.widgets.each do |widget| %>
+						<% unless !column.rows.empty? %>
+							<% column.widgets.each do |widget| %>
+								<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+								<%= link_to 'Edit', edit_page_widget_path(@group, @page, widget, :column => column.id) %>
+							<% end %>
+							<%= render "cms/pages/edit/add_widget_links", :column => column %>												
+						<% end %>
+					
+						<% column.rows.each_with_index do |sub_row, sub_row_index| %>					
+							<div class="row" id="row<%= sub_row_index %>">
+								<% sub_row.columns.each_with_index do |sub_column, sub_column_index| %>
+									<div class="span<%= sub_column.span %> column" id="column<%= sub_column_index %>">
+										<% sub_column.widgets.each do |widget| %>
 											<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
 										<% end %>
-										<%= render "cms/pages/edit/add_widget_links", :panel => sub_panel, :region => region %>																				
+										<%= render "cms/pages/edit/add_widget_links", :column => sub_column %>												
 									</div>
-								<% end %>	
+								<% end %>
 							</div>
-								
-						<% else %>
-					
-							<% panel.widgets.each do |widget| %>
-								<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
-							<% end %>
-							<%= render "cms/pages/edit/add_widget_links", :panel => panel, :region => region %>												
-					
-						
 						<% end %>
-						<%#= link_to 'Remove panel', '#', :class => 'remove_panel_button' -%>
-
+						
 					</div>
-				</div>
-				
-			<% end %>
+					
+				<% end %>
+			</div>
 			
-			<%#= form_tag '/cms/pages/add_panel', :remote => true do %>
-			<%= form_tag '/cms/pages/add_panel' do %>
-				<%= hidden_field_tag 'region', region.slug %>
-				<%= hidden_field_tag 'id', params[:id] %>
-				<%= submit_tag 'Add Panel' %>
-			<% end %>
-			
-			<%#= link_to 'Add panel', '#', :class => 'add_panel_button' -%>
-		</div>
-	<% end %>
+		<% end %>
 	
-</div>
+	</div>
+</section>
 
-
-<!-- <div>
-	<%#= link_to 'Save layout', '#', :id => 'save_layout_link' %>
-</div> -->
-
-<!-- 
-<%#= javascript_tag do %>
-	$('a#save_layout_link').click(function(){
-		
-		$.ajax({
-	   	 type: 'post', 
-	     data: {
-				 'page_id': '<%#= params[:id] %>',
-			   'page': page_data()
-				},
-	     dataType: 'script', 
-	     url: '/cms/pages/layout'
-		});
-		return false;
-	});
-	
-	function page_data() {
-		page = {}
-		page['regions'] = get_regions();
-		return page;
-	}
-	
-	function get_regions() {
-		var regions = []
-		$('div.region').each(function(index) {
-			var region = {}
-			region['name'] = $(this).attr('id');			
-			region['panels'] = get_panels($(this));
-			regions[index] = region;
-		})
-		return regions;
-	}
-	
-	function get_panels(region) {
-		var panels = []
-		region.children('div.panel').each(function() {
-			var panel = {}
-			panel['name'] = $(this).attr('id');
-			panel['widget_ids'] = get_widget_ids($(this));
-			panels.push(panel);
-		})
-		return panels;
-	}
-	
-	function get_widget_ids(panel) {
-		var widget_ids = []
-		panel.children('div.widget').each(function() {
-			widget_ids.push($(this).attr('id'));
-		})
-		return widget_ids;
-	}
-	
-	$('.add_panel_button').click(function() {
-		var region = $(this).parent('.region')
-		var new_panel_id = region.children('div.panel').length + 1;
-		var new_panel = $('div.hide .panel').attr('id', 'panel' + new_panel_id).parent().html();
-		region.append(new_panel);
-		$('div.hide .panel').removeAttr('id')		
-		$('#panel' + new_panel_id + ' #add_widget_links a').each(function() {
-			var current_link = $(this).attr('href');
-			$(this).attr('href', current_link + '&region=' + region.attr('id') + '&panel=panel' + new_panel_id);
-		})	
-		return false;
-	})
-	
-	$('.remove_panel_button').click(function() {
-		$(this).parent('div.panel').remove();
-		return false;
-	})	
-	
-<%# end %> -->
+<section>	
+	<h2>Add row</h2>	
+	<div class="add_row">
+		<%= form_tag '/cms/pages/add_row' do %>
+			<%= hidden_field_tag 'id', params[:id] %>
+		   <div>
+		    <%= select_tag :template, options_for_select(['12x0', '7x5', '3x9']) %>
+				<%= submit_tag 'Add Row' %>
+		  </div>				
+		<% end %>
+	</div>
+</section>

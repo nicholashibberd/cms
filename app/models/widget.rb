@@ -5,7 +5,7 @@ class Widget
   field :panel_id
   
   belongs_to :page
-  belongs_to :panel
+  belongs_to :column
   
   scope :order_by_position, order_by(:position => :asc)
   scope :by_panel, lambda {|panel_id| where(:panel_id => panel_id)}

@@ -1,39 +1,39 @@
-<div class="<%= @page.template %>" id="edit_content_page">	
-	<% @page.regions.each do |region| %>
-		<div class="region" id="<%= region.slug %>">
-			
-			<% region.panels.each do |panel| %>
+<% if @page.header %>
+	<div id="on_page_header">
+		<h1><%= @page.header %></h1>
+	</div>
+<% end %>
 
-				<div class="row">
-					<div class="panel span12" id="<%= panel.id %>">
+<% @page.rows.each_with_index do |row, row_index| %>
+	
+		<div class="row" id="row<%= row_index %>">
+			<% row.columns.each_with_index do |column, column_index| %>
+			
+				<div class="span<%= column.span %> column column<%= column_index %>" id="row<%= row_index %>_column<%= column_index %>">
 					
-						<% if !panel.panels.empty? %>
-						
-							<div class="row">
-								<% panel.panels.each do |sub_panel| %>
-									<div class="sub_panel span<%= sub_panel.span %>" id="<%= sub_panel.id %>">
-										<% sub_panel.widgets.each do |widget| %>
-											<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
-										<% end %>
-									</div>
-								<% end %>	
-							</div>
-								
-						<% else %>
-					
-							<% panel.widgets.each do |widget| %>
-								<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
-							<% end %>
-					
-						
+					<% unless !column.rows.empty? %>
+						<% column.widgets.each do |widget| %>
+							<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
 						<% end %>
-									
-					</div>
+					<% end %>
+				
+					<% column.rows.each_with_index do |sub_row, sub_row_index| %>					
+						<div class="row" id="sub_row<%= sub_row_index %>">
+							<% sub_row.columns.each_with_index do |sub_column, sub_column_index| %>
+								<div class="span<%= sub_column.span %> column" id="sub_row<%= sub_column_index %>">
+									<% sub_column.widgets.each do |widget| %>
+										<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+									<% end %>
+								</div>
+							<% end %>
+						</div>
+					<% end %>
+					
 				</div>
 				
 			<% end %>
-			
 		</div>
+		
 	<% end %>
-	
+
 </div>

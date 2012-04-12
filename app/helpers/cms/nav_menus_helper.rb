@@ -8,6 +8,7 @@ module Cms
         NavMenu.first
       end
     end
+
         
   end
 end

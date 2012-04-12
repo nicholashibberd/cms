@@ -1,43 +1,9 @@
-<nav>
-	<%= link_to 'Pages', pages_path, :class => 'selected' %>	
-	<%= link_to 'Users', users_path %>
-	<%= link_to 'Forms', forms_path %>	
-	<%= link_to 'Photos', photos_path %>
-	<%= link_to 'Navigation', nav_menus_path %>	
-	<%= link_to 'People', people_path %>
-	<%= link_to 'Events', events_path %>		
-	<%= link_to 'Documents', documents_path %>	
-	<% Category.all.each do |category| %>
-		<%= link_to category.name, category_path(nil, category) %>
-	<% end %>
-	<%= link_to 'Site', 'site/edit' %>	
-</nav>	
+<% nav_menu = @group && @group.admin_nav ? @group.admin_nav : NavMenu.admin_nav %>
 
-<% if @group %>
-	<div id="group_nav">
-		<%= link_to 'Pages', pages_path(@group) %>
-		<%= link_to 'Forms', forms_path(@group) %>
-		<%= link_to 'Photos', photos_path(@group) %>
-		<%= link_to 'Navigation', nav_menus_path(@group) %>
-		<%= link_to 'People', people_path(@group) %>		
-		<%= link_to 'Events', events_path(@group) %>		
-		<%= link_to 'Documents', documents_path(@group) %>		
-		<% Category.all.each do |category| %>
-			<%= link_to category.name, category_path(@group, category) %>
+<% if nav_menu %>
+	<nav>
+		<% nav_menu.nav_items.each do |nav_item| %>
+			<%= admin_nav_link(nav_item) %>
 		<% end %>
-	</div>
+	</nav>	
 <% end %>
-
-
-
-
-
-<!--
-
-<%# if Group.count > 0 %>
-	<div id="group_nav">
-		<%# Group.all.each do |group| %>
-			<%#= link_to group.name, group_path(group) %>
-		<%# end %>
-	</div>
-<%# end %>-->

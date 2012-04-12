@@ -3,7 +3,7 @@ Cms::Engine.routes.draw do
     resources :pages do
       resources :widgets
       collection do
-        post :layout, :add_panel, :split_panel
+        post :layout, :add_row, :split_panel
       end
     end
     resources :photos
@@ -55,6 +55,7 @@ Cms::Engine.routes.draw do
   get '../pages/:id', :to => 'pages#show', :as => :host_page
   get '../events/:id', :to => 'events#show', :as => :host_event  
   post 'form/:form_id/form_records', :to => 'form_records#create', :as => :create_form_record
+  match '../articles/(groups/:group_id)/(categories/:category_id)', :to => 'articles#index', :as => :group_category_articles
   
   #match '../media/:file_name', :to => Dragonfly[:images]  
 end

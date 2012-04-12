@@ -9,7 +9,7 @@ class GalleryWidget < Widget
   def image_width
     if display == 'Stacked' && width.nil?
       #{}"#{(column.to_i * 80) - 20}x>"
-      "#{(panel.span * 80) - 20}x>"
+      "#{(column.span * 80) - 20}x>"
     else 
       width.nil? ? 'x140' : "x#{width}"
     end

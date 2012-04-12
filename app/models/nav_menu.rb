@@ -21,4 +21,12 @@ class NavMenu
     current_highest ||= 0
   end  
   
+  def self.admin_nav
+    top_level.where(:menu_type => 'admin').first
+  end
+
+  def self.main_nav
+    top_level.where(:menu_type => 'main_nav').first
+  end
+    
 end
