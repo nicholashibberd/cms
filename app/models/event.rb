@@ -76,11 +76,20 @@ class Event
   end  
   
   def self.grouped_by_day(category, group)
-    events = self.all
-    events = events.by_category(category) if category
+    events = self.upcoming
+    unless category == 'All'
+      events = events.by_category(category) if category
+    end
     events = events.by_group(group.id) if group
     events.group_by {|event| event.start_date}
   end
   
+  def display_location
+    if group
+      location.blank? ? group.name : location
+    else
+      location
+    end
+  end  
     
 end

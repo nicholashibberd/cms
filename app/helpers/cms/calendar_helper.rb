@@ -25,7 +25,7 @@ module Cms
           events.each do |event|
             xml.div :class => 'calendar_event' do
               xml.div("#{event.start_time.strftime('%H:%M')}: ", "class" => "event_time")
-              xml.a(event.title, "href" => event_path(event))
+              xml.a(event.title, "href" => host_event_path(event))
             end
           end
         end

@@ -3,7 +3,7 @@ Cms::Engine.routes.draw do
     resources :pages do
       resources :widgets
       collection do
-        post :layout, :add_row, :split_panel
+        post :layout, :add_row, :split_panel, :update_row
       end
     end
     resources :photos
@@ -57,7 +57,7 @@ Cms::Engine.routes.draw do
   post 'form/:form_id/form_records', :to => 'form_records#create', :as => :create_form_record
   match '../articles/(groups/:group_id)/(categories/:category_id)', :to => 'articles#index', :as => :group_category_articles
   
-  #match '../media/:file_name', :to => Dragonfly[:images]  
+  match '../media/:file_name', :to => Dragonfly[:images]  
 end
 
 Rails.application.routes.draw do

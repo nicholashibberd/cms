@@ -17,8 +17,9 @@ module Cms
       if photo.save
     		redirect_to photos_path(@group), :notice => "Successfully created photo"
       else
+        raise photo.errors.inspect
         flash[:error] = "There was an error creating the photo"
-        render :action => 'new'
+        redirect_to photos_path(@group)
       end
     end
 

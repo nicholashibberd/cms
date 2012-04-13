@@ -16,6 +16,7 @@ class ContentPage < Page
       when '12x0' then add_row([12])
       when '7x5' then add_row([7,5])
       when '3x9' then add_row([3,9])
+      when '4x4x4' then add_row([4,4,4])        
     end
   end
   

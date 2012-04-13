@@ -1,12 +1,13 @@
-<% if @page.header %>
-	<div id="on_page_header">
-		<h1><%= @page.header %></h1>
-	</div>
-<% end %>
-
 <% @page.rows.each_with_index do |row, row_index| %>
 	
 		<div class="row" id="row<%= row_index %>">
+
+			<% if row.header %>
+				<div class="row_header" id="row<%= row.position %>_header">
+					<h1><%= row.header %></h1>
+				</div>
+			<% end %>
+			
 			<% row.columns.each_with_index do |column, column_index| %>
 			
 				<div class="span<%= column.span %> column column<%= column_index %>" id="row<%= row_index %>_column<%= column_index %>">

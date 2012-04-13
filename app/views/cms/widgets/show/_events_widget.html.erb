@@ -1,39 +1,18 @@
-<!-- <div class="widget events_widget" id="<%#= widget.css_id %>">
-	<h2><%#= widget.name %></h2>
-	<%# widget.events_by_date.each do |day, events| %>
-		<div class='event_day'>
-			<%#= date_icon(day).html_safe %>
-			<%# events.each do |event| %>
-				<div class="event_widget_event">
-					<%#= link_to event.title, host_event_path(event) %>
-				</div>
-			<%# end %>
-		</div>
-	<%# end %>
-</div> -->
-
 <div class="widget events_widget" id="<%= widget.css_id %>">
 	<h2><%= widget.name %></h2>
-	<table>
-		<tr>
-			<th>Day</th>
-			<th>Time</th>
-			<th>Event</th>
-		</tr>
-		<% Event.grouped_by_day(widget.event_category, widget.group).each do |day, events| %>
-			<tr>
-				<td rowspan="<%= events.count %>"><%=l day, :format => :long %></td>
-				<% first_event = events.shift %>
-				<td><%= first_event.start_time.strftime('%H:%M') %></td>				
-				<td><%= first_event.title %></td>
-			</tr>
+	<% Event.grouped_by_day(widget.event_category, widget.group).first(widget.number_to_display).each do |day, events| %>
+		<div class='event_day'>
+			<%= date_icon(day).html_safe %>
 			<% events.each do |event| %>
-				<tr>
-					<td><%= event.start_time.strftime('%H:%M') %></td>
-					<td><%= link_to event.title, host_event_path(event) %></td>
-				</tr>
+				<div class="event_widget_event">
+					<div class="event_name">
+						<%= link_to event.title, host_event_path(event) %>
+					</div>
+					<div>
+						<span class="strong"><%= event.start_time.strftime('%H:%M') %></span>&nbsp; <%= event.display_location %>
+					</div>
+				</div>
 			<% end %>
-			</tr>
-		<% end %>
-	</table>
+		</div>
+	<% end %>
 </div>

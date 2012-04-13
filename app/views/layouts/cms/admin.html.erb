@@ -7,16 +7,26 @@
   <%= csrf_meta_tags %>
 </head>
 <body id="admin">
-	
-	<div id="background">
-		<div id="background_header">
-		</div>
-		<div id="background_nav">
-		</div>
-	</div>
-	
-	<div id="wrapper">			
-		<header>
+		
+	<div id="envelope">
+		<div id="background">
+			<div id="background_header">
+			</div>
+			<div id="background_nav">
+			</div>
+		</div>	
+		<!-- Flash message goes here -->
+		<% if !flash.blank? %>
+	    <div id='flash'>
+	      <ul id='flash_list'>
+	        <% flash.each do |key, value| %>
+	          <li class="flash_item <%= key %>"><%= value %></li>
+	        <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+			
+		<header>			
 			<div id="admin_top_right">
 				<div id="user_status">
 					<% if current_user %>
@@ -24,7 +34,7 @@
 					<% end %>
 					<%= link_to 'View site', '/' %>
 				</div>
-				
+			
 				<% if Group.count > 0 %>
 					<div id="group_nav">
 						<%= link_to 'Admin home', admin_home_path %>
@@ -35,21 +45,10 @@
 				<% end %>				
 			</div>
 	    <h1><%= site_name %><%= " - #{@group.name}" if @group %></h1>
+			<%= render 'layouts/cms/top_nav' %>			
 		</header>
-		
-		<%= render 'layouts/cms/top_nav' %>	
-    <div id="<%= current_controller %>_<%= request[:action] %>_content" class="content">
-			<!-- Flash message goes here -->
-			<% if !flash.blank? %>
-		    <div id='flash'>
-		      <ul id='flash_list'>
-		        <% flash.each do |key, value| %>
-		          <li class="flash_item <%= key %>"><%= value %></li>
-		        <% end %>
-		      </ul>
-		    </div>
-		  <% end %>
-			
+	
+    <div id="<%= current_controller %>_<%= request[:action] %>_content" class="content">		
 			<%= yield %>
     </div>
 	</div>

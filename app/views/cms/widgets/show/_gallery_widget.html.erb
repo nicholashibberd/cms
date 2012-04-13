@@ -9,7 +9,7 @@
 			<% if widget.display_in_lightbox == true %>
 				<%= link_to (image_tag photo.cover_image.thumb("#{widget.image_width}").url), photo.cover_image.url, :rel => "lightbox-gallery", :title => photo.caption %>
 			<% else %>
-				<% link_target = photo.link.blank? ? photo.photo.url : photo.link %>
+				<% link_target = photo.link.blank? ? photo.cover_image.url : photo.link %>
 				<%= link_to (image_tag photo.cover_image.thumb("#{widget.image_width}").url), link_target, :title => photo.caption %>
 			<% end %>
 			

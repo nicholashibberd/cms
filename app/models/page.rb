@@ -5,8 +5,6 @@ class Page
   field :slug, :type => String
   field :title, :type => String
   field :template
-  #field :panels, :type => Integer, :default => 1
-  field :header
 
   has_many :rows
   has_many :widgets  
@@ -34,6 +32,11 @@ class Page
   
   def page_type
     self._type ? self._type.underscore : 'page'
+  end
+  
+  def update_page(page_type_params)
+    params_with_photos = page_type_params[:photo_ids] ? page_type_params : page_type_params.merge(:photo_ids => [])
+  	update_attributes(params_with_photos)
   end
     
   # Widgets

@@ -1,8 +1,6 @@
 class Panel
   include Mongoid::Document
-  
-  field :span
-  
+    
   belongs_to :page
   belongs_to :region
   belongs_to :panel

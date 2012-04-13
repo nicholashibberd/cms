@@ -34,5 +34,5 @@ module PagesHelper
   def background_layout
     @page.nil? || @page.photos.empty? ? 'no_background' : 'background'
   end
-  
+
 end

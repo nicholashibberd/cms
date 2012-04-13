@@ -32,7 +32,7 @@ module Cms
         else ContentPage.new(params[:content_page])
       end
       if page.save
-    		redirect_to edit_page_path(@group, page)
+    		redirect_to edit_page_path(@group, page), :notice => 'Page successfully created'
       else
         flash[:error] = "There was an error creating the page"
         render :action => 'new'
@@ -48,13 +48,14 @@ module Cms
 	      when 'profile_page' then params[:profile_page]
         else params[:content_page]
       end
-  		page.update_attributes(page_type_params)
+      page.update_page(page_type_params)
   		redirect_to pages_path(@group)
   	end
 
   	def	destroy
   		page = Page.find_by_slug(params[:id])
   		page.destroy
+      flash[:error] = "Page successfully deleted"  		
   		redirect_to pages_path(@group)
   	end
   	
@@ -87,6 +88,12 @@ module Cms
       region = page.regions.by_slug(params[:region])
       panel = region.panels.find(params[:panel])      
       panel.split(params[:columns])
+      redirect_to :back
+    end
+    
+    def update_row
+      row = Row.find(params[:row_id])
+      row.update_attributes(params[:row])
       redirect_to :back
     end
     
