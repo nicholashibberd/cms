@@ -12,6 +12,7 @@ module Cms
         events = events_this_month.select {|event| event.start_date.to_date == day}
         if !events.empty?
           [calendar_item(day, events), {:class => 'calendar_day_with_events'}]
+          render 'calendar/day_with_events', :day => day, :events => events
         else
           [content_tag(:div, day.day, :class => 'calendar_day_marker'), {:class => 'calendar_day_without_events'}]
         end
@@ -31,14 +32,14 @@ module Cms
         end
     end
 
-    def other_month_link(state)
+    def other_month_link(state, page)
       month = params[:month] ? params[:month].to_i : Date.today.month
       year = params[:year] ? params[:year].to_i : Date.today.year
 
       date = Date.new(year,month,1)
       other_month = state == 'previous' ? date - 1.month : date + 1.month
 
-      link_to other_month.strftime('%b'), calendar_other_month_path(:month => other_month.month, :year => other_month.year), :remote => true, :class => 'calendar_other_month_link', :id => "calendar_other_month_link_#{state}"
+      link_to other_month.strftime('%b'), host_page_path(page, :month => other_month.month, :year => other_month.year), :class => 'calendar_other_month_link', :id => "calendar_other_month_link_#{state}"
     end
 
     def date_icon(date)
@@ -48,6 +49,6 @@ module Cms
         xml.div date.day, :class => 'date_icon_day'
       end
     end
-
+    
   end
 end
