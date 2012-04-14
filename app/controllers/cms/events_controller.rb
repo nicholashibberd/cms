@@ -24,7 +24,7 @@ module Cms
     end
 
     def create
-      if params[:event][:period] == "Does not repeat"      
+      if params[:event][:period] == "Does not repeat"
         event = Event.create(params[:event])
       else
         #events = EventSeries.new(params[:event])
