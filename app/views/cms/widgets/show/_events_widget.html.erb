@@ -6,12 +6,13 @@
 			<% events.each do |event| %>
 				<div class="event_widget_event">
 					<div class="event_name">
-						<%= link_to event.title, host_event_path(event) %>
+						<a data-toggle="modal" href="#event_<%= event.id %>_modal" ><%= event.title %></a>
 					</div>
 					<div>
 						<span class="strong"><%= event.start_time.strftime('%H:%M') %></span>&nbsp; <%= event.display_location %>
 					</div>
 				</div>
+				<%= render 'calendar/event_modal_window', :event => event %>
 			<% end %>
 		</div>
 	<% end %>

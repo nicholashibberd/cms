@@ -48,6 +48,7 @@ Cms::Engine.routes.draw do
   match '/signout', :to => 'sessions#destroy', :as => :signout
   
   post '/order_widgets', :to => 'pages#order_widgets', :as => :order_widgets
+  post "/nav_menus/order_nav_items", :to => 'nav_menus#order_nav_items', :as => :order_nav_items
 
   # Routes in the host application
   get '../categories/:id', :to => 'categories#show', :as => :host_category

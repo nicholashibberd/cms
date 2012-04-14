@@ -6,34 +6,9 @@
 				<div class="event_time">
 					<%= event.start_time.strftime('%H:%M') %>
 				</div>
-				<%#= link_to event.title, host_event_path(event) %>
 				<a data-toggle="modal" href="#event_<%= event.id %>_modal" ><%= event.title %></a>
+				<%= render 'calendar/event_modal_window', :event => event %>
 			</div>
-			
-			<div class="modal hide fade in" id="event_<%= event.id %>_modal" style="display: none;">
-		    <div class="modal-header">
-		        <a class="close" data-dismiss="modal" href="#">×</a>
-		        <h3><%= event.title %></h3>
-		    </div>
-		    <div class="modal-body">
-					<p>
-					  <b>Location</b>
-						<%= event.display_location %>
-					</p>
-					<p>
-					  <b>Starts at:</b>
-						<%= l event.start_time, :format => :long %>
-					</p>
-					<p>
-					  <b>Description:</b>
-					  <%= event.content %>
-					</p>
-		    </div>
-		    <div class="modal-footer">
-						<a class="btn" data-dismiss="modal">Close</a>
-		    </div>	
-			</div>
-			
     <% end %>
 	</div>
 </div>

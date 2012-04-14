@@ -1,5 +1,7 @@
 class NavItem
   include Mongoid::Document
+  default_scope asc(:position)
+
   field :name
   field :link_target
   field :position

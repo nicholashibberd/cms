@@ -41,6 +41,13 @@ module Cms
 
       redirect_to nav_menus_path(@group)
     end
+    
+    def order_nav_items
+      nav_menu = NavMenu.find(params[:id])
+      nav_menu.order_nav_items(params)
+      render :nothing => true
+    end  
+
   
   end
 end

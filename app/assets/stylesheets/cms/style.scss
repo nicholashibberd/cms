@@ -24,7 +24,8 @@ body#admin {
 	header {
 		position: relative;
 		padding: 50px 60px 0;
-    @include gradiented(#4C5260, #090E16);		
+		background: url(backgrounds/dark_blue_darker_blue.png);				
+    @include gradiented(#4C5260, #090E16);
 
 		h1 {
 			color: #fff;
@@ -64,6 +65,7 @@ body#admin {
 		padding: 0 60px;
 		width: 100%;
 		margin-left: -60px;
+		background: url(backgrounds/white_beige.png);		
     @include gradiented(#FFF, #E1DED3);		
 
 		h1 {
@@ -114,7 +116,8 @@ body#admin {
 		}
 		
 		a.selected {
-      @include gradiented(#E1DED3, #FFF);			
+			background: url(backgrounds/beige_white.png);			
+			@include gradiented(#E1DED3, #FFF);
 			@include rounded;
 			border: 1px solid #fff;
 			color: $dark_blue;
