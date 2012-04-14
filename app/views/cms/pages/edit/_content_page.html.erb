@@ -23,9 +23,10 @@
 						<% unless !column.rows.empty? %>
 							<% column.widgets.each do |widget| %>
 								<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
-								<%= link_to 'Edit', edit_page_widget_path(@group, @page, widget, :column => column.id) %>
+								<%= link_to 'Edit', edit_page_widget_path(@group, @page, widget, :column => column.id), :class => 'btn btn-warning' %>
 							<% end %>
-							<%= render "cms/pages/edit/add_widget_links", :column => column %>												
+							<a data-toggle="modal" href="#add_widget_modal_<%= column.id %>" class="btn btn-info">Add</a>
+							<%= render "cms/pages/edit/add_widget_modal", :column => column %>												
 						<% end %>
 					
 						<% column.rows.each_with_index do |sub_row, sub_row_index| %>					
@@ -34,8 +35,10 @@
 									<div class="span<%= sub_column.span %> column" id="column<%= sub_column_index %>">
 										<% sub_column.widgets.each do |widget| %>
 											<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+											<%= link_to 'Edit', edit_page_widget_path(@group, @page, widget, :column => sub_column.id), :class => 'btn btn-warning' %>											
+											<a data-toggle="modal" href="#add_widget_modal_<%= sub_column.id %>" class="btn btn-info">Add</a>
+											<%= render "cms/pages/edit/add_widget_modal", :column => sub_column %>												
 										<% end %>
-										<%= render "cms/pages/edit/add_widget_links", :column => sub_column %>												
 									</div>
 								<% end %>
 							</div>

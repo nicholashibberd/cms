@@ -78,23 +78,12 @@ function checkForExternalLink(value){
 	}     
 }
 
-function checkForLinkType(value){
-	if (value == 'internal_link') {
-		$('#internal_link_field').show();
-		$('#external_link_field').hide();
-	}
-	else {
-		$('#external_link_field').show();
-		$('#internal_link_field').hide();
-	}
-}
-
 $(function($) {
 	var status = $('#nav_item_link_type_internal_link').attr("checked");
-	if (status == true) {
+	if (status == 'checked') {
 			$('#external_link_field').hide();
 	}
-	else {
+	else {		
 			$('#internal_link_field').hide();
 	}
 })
