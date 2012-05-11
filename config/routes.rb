@@ -3,7 +3,7 @@ Cms::Engine.routes.draw do
     resources :pages do
       resources :widgets
       collection do
-        post :layout, :add_row, :split_panel, :update_row
+        post :layout, :add_row, :split_panel, :update_row, :add_region_rows, :add_sub_region, :add_region
       end
     end
     resources :photos

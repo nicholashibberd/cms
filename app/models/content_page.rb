@@ -6,18 +6,10 @@ class ContentPage < Page
     create_rows(template)
   end
   
-  def create_rows(template)
-    case template
-      when 'template1' then add_row([12])
-      when 'template2' then add_row([7,5])
-      when 'template3' then add_row([7,5])
-      when 'template4' then add_row([3,9])
-      when 'template5' then add_row([7,5])
-      when '12x0' then add_row([12])
-      when '7x5' then add_row([7,5])
-      when '3x9' then add_row([3,9])
-      when '4x4x4' then add_row([4,4,4])        
-    end
+  def create_rows(page_template)
+    template = Site::TEMPLATES.detect {|site_template| site_template[:name] == page_template}
+    row = template[:first_row] || [12]
+    add_row(row)
   end
   
   def add_row(columns)

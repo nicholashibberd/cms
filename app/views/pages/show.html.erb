@@ -1,4 +1,4 @@
-<div id="<%= @page.template %>" class="<%= background_layout %>">
+<div id="<%= @page.template %>" class="<%= background_layout %> template">
 	<%= background_image(@page) %>
 	<div class="container <%= request[:controller] %>_<%= request[:action] %>_content">
 		<%= render 'layouts/application/flash', :flash => flash %>

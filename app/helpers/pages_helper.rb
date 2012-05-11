@@ -1,10 +1,11 @@
 module PagesHelper
-  def render_page_template(page, action)    
+  def render_page_template(page, action)
       case page.page_type        
         when 'articles_page' then render "cms/pages/show/articles_page", :article => @article
         when 'calendar_page' then render "cms/pages/show/calendar_page"
         when 'homepage' then render "cms/pages/show/homepage"
         when 'profile_page' then render "cms/pages/#{action}/profile_page"
+        when 'html_page' then render "cms/pages/#{action}/html_page"
         else render_content_page_template(page, action)
       end
   end

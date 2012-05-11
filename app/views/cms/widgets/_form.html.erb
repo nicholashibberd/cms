@@ -1,6 +1,7 @@
 <%= form_for @widget, {:url => path_for_widget(@page, @widget)} do |f| %>
 	<%= hidden_field_tag 'widget_type', @widget.widget_type %>
 	<%= f.hidden_field :column_id, :value => params[:column] %>
+	<%= f.hidden_field :panel_id, :value => params[:panel] %>
 	<%= render :partial => "cms/widgets/form/#{@widget.widget_type}", :locals => {:f => f, :widget => @widget}  %>
   <div>
     <%= f.submit :class => 'btn btn-success' 'Save', :class => 'btn btn-success' %>

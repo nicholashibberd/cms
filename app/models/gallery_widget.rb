@@ -7,11 +7,12 @@ class GalleryWidget < Widget
   field :width, :type => Integer
   
   def image_width
-    if display == 'Stacked' && width.nil?
-      #{}"#{(column.to_i * 80) - 20}x>"
+    if display == 'Stacked' && width.nil? && column
       "#{(column.span * 80) - 20}x>"
+    elsif panel && !panel.width.nil?
+      "#{panel.width}x>"
     else 
-      width.nil? ? 'x140' : "x#{width}"
+      width.nil? ? '140x>' : "#{width}x>"
     end
   end
 

@@ -4,6 +4,7 @@ class Page
   field :name, :type => String
   field :slug, :type => String
   field :title, :type => String
+  field :header, :type => String
   field :template
 
   has_many :rows

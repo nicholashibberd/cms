@@ -6,6 +6,8 @@ class Widget
   
   belongs_to :page
   belongs_to :column
+  belongs_to :div
+  belongs_to :panel
   
   scope :order_by_position, order_by(:position => :asc)
   scope :by_panel, lambda {|panel_id| where(:panel_id => panel_id)}

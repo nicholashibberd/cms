@@ -4,6 +4,7 @@ require 'later_dude'
 require 'truncate_html'
 require 'mongoid_paperclip'
 require 'tinymce-rails'
+require 'nested_form'
 
 
 module Cms

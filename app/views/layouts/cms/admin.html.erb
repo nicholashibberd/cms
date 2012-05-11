@@ -26,7 +26,7 @@
 	    </div>
 	  <% end %>
 			
-		<header>			
+		<div id="admin_header">			
 			<div id="admin_top_right">
 				<div id="user_status">
 					<% if current_user %>
@@ -46,7 +46,7 @@
 			</div>
 	    <h1><%= site_name %><%= " - #{@group.name}" if @group %></h1>
 			<%= render 'layouts/cms/top_nav' %>			
-		</header>
+		</div> <!-- #admin_header -->
 	
     <div id="<%= current_controller %>_<%= request[:action] %>_content" class="content">		
 			<%= yield %>

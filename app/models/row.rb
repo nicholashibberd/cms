@@ -6,6 +6,7 @@ class Row
   field :position, :type => Integer
   
   belongs_to :page
+  belongs_to :region
   has_many :columns
   belongs_to :column
   

@@ -29,6 +29,7 @@ module Cms
         when 'calendar_page' then CalendarPage.new(params[:calendar_page])
         when 'homepage' then Homepage.new(params[:homepage])          
         when 'profile_page' then ProfilePage.new(params[:profile_page])          
+        when 'html_page' then HtmlPage.new(params[:html_page])
         else ContentPage.new(params[:content_page])
       end
       if page.save
@@ -46,6 +47,7 @@ module Cms
 	      when 'calendar_page' then params[:calendar_page]
 	      when 'homepage' then params[:homepage]
 	      when 'profile_page' then params[:profile_page]
+        when 'html_page' then params[:html_page]
         else params[:content_page]
       end
       page.update_page(page_type_params)
@@ -80,6 +82,24 @@ module Cms
     def add_row
       page = Page.find_by_slug(params[:id])
       page.create_rows(params[:template])
+      redirect_to :back
+    end
+
+    def add_sub_region
+      region = Region.find(params['region_id'])
+      region.add_sub_region(params['sub_region'])
+      redirect_to :back
+    end
+    
+    def add_region
+      page = Page.find(params[:page_id])
+      page.add_region(params['region'])
+      redirect_to :back
+    end
+
+    def add_region_rows
+      region = Region.find(params['region_id'])
+      region.add_row(nil)
       redirect_to :back
     end
 
