@@ -1,6 +1,7 @@
 class HtmlPage < Page
       
   field :top_header
+  field :layout
       
   has_many :panels
   has_many :regions
@@ -14,14 +15,15 @@ class HtmlPage < Page
   def create_regions(page_template)
     template = TEMPLATES['templates'][page_template]
     if template
+      self.update_attributes(:layout => template['layout'])
       template['regions'].each do |region|
-        add_region(region['name'])
+        add_region(region['region_type'])
       end
     end
   end  
   
-  def add_region(region_name)
-    region = TEMPLATES['regions'][region_name]
+  def add_region(region_type)
+    region = TEMPLATES['regions'][region_type]   
     new_region = self.regions.create(:region_type => region['region_type'], :region_category => region['region_category'], :flexible => region['flexible'])
     new_region.add_panels(region['panels']) if region['panels']
   end

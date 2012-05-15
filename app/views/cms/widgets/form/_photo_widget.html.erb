@@ -1,0 +1,16 @@
+<div class="field">
+  <%= f.label :choose_photo %><br />
+	<% Photo.all.in_groups_of(3, false).each do |row| %>
+		<div class="gallery_widget_row">
+			<% row.each do |photo| %>
+	    <div class="photo_widget_form_item">
+				<div class="photo_widget_form_item_details">
+			    <%= label_tag photo.caption %><br />
+					<%= radio_button_tag 'photo_widget[photo_id]', photo.id, widget.photo == photo %>
+				</div>
+				<%= image_tag photo.cover_image.thumb('x100').url %><br />
+	    </div>
+			<% end %>
+		</div>
+	<% end %>
+</div>
