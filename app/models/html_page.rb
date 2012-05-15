@@ -1,7 +1,6 @@
 class HtmlPage < Page
       
   field :top_header
-  field :layout
       
   has_many :panels
   has_many :regions

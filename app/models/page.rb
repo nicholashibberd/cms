@@ -6,6 +6,7 @@ class Page
   field :title, :type => String
   field :header, :type => String
   field :template
+  field :layout  
 
   has_many :rows
   has_many :widgets  
