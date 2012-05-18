@@ -35,8 +35,8 @@ class HtmlPage < Page
     panels.detect {|panel| panel.name == panel_name}    
   end
   
-  def max_region_position(region_type)
-    existing_regions = regions.by_type(region_type)
+  def max_region_position(region_category)
+    existing_regions = regions.by_category(region_category)
     current_highest = existing_regions.map(&:position).compact.max
     current_highest ||= 0
   end

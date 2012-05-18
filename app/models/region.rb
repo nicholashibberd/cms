@@ -21,11 +21,12 @@ class Region
   before_create :set_position, :set_name
   
   scope :by_row, lambda {|row| where(:row => row)}
-  scope :by_type, lambda {|region_category| where(:region_category => region_category)}
+  scope :by_type, lambda {|region_type| where(:region_type => region_type)}
+  scope :by_category, lambda {|region_category| where(:region_category => region_category)}
   scope :top_level, where(:region_id => nil)  
   
   def set_position
-    self.position = html_page.max_region_position(region_type) + 1
+    self.position = html_page.max_region_position(region_category) + 1
   end
   
   def set_name
