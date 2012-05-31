@@ -20,7 +20,20 @@ body#admin {
 	.content {
 		padding: 0 60px;
 	}
-		
+				
+	#status_bar { 
+		background: #4C5260;
+		height: 10px;
+		text-align: right;
+		padding: 5px 40px 15px 0;
+		a, a:visited { color: #fff;};
+	}		
+	
+	#status_bar.signed_in {
+		@include gradiented(#85CBF9, #3399CC);		
+		color: #333; 		
+	}
+	
 	#admin_header {
 		position: relative;
 		padding: 50px 60px 0;
@@ -37,10 +50,11 @@ body#admin {
 			top: 35px;
 			right: 40px;
 			text-align: right;
-			font-size: 14px;					
+			font-size: 14px;
+			color: #eee;					
 			
 			a, a:visited {
-				color: #E6E3DA;
+				color: #fff;
 			}
 			
 			#group_nav {

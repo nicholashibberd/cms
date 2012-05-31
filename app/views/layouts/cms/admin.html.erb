@@ -25,16 +25,17 @@
 	      </ul>
 	    </div>
 	  <% end %>
-			
+		<% if current_user %>
+			<div id="status_bar" class="signed_in">			
+				<%= current_user.name %> &nbsp; <%= link_to "Sign out", signout_path, :id => 'signout_link' %>
+			</div>
+		<% else %>
+			<div id="status_bar">			
+				<%= link_to 'Sign in', signin_path %>
+			</div>							
+		<% end %>
 		<div id="admin_header">			
 			<div id="admin_top_right">
-				<div id="user_status">
-					<% if current_user %>
-						<%= current_user.name %>: <%= link_to "Sign out", signout_path, :id => 'signout_link' %> | 
-					<% end %>
-					<%= link_to 'View site', '/' %>
-				</div>
-			
 				<% if Group.count > 0 %>
 					<div id="group_nav">
 						<%= link_to 'Admin home', admin_home_path %>

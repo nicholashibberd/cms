@@ -10,7 +10,7 @@ module Cms
     def create
       user = User.authenticate(params[:session][:email], params[:session][:password])
       if user.nil?
-        flash[:success] = "Your email/password combination is invalid"
+        flash[:error] = "Your email/password combination is invalid"
         redirect_to signin_path
       else
         sign_in user
