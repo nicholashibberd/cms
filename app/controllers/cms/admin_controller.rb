@@ -6,6 +6,7 @@ module Cms
     before_filter :login_required, :setup
   
     def login_required
+      #test to see if this changes
       if signed_in?
         return true
       end
