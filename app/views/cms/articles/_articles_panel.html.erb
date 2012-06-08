@@ -1,5 +1,0 @@
-<%= render 'articles/articles_archive', :page => @page, :category => category %>
-
-<% articles.each do |article| %>
-	<%= render :partial => 'articles/article', :locals => {:article => article, :snippet_size => snippet_size} %>
-<% end %>

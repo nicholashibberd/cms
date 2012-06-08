@@ -2,7 +2,7 @@ module Cms
   class NavMenusController < Cms::AdminController
 
     def index
-      @nav_menus = @group ? @group.nav_menus : NavMenu.top_level
+      @nav_menus = NavMenu.all
     end
 
     def new
@@ -17,7 +17,7 @@ module Cms
       nav_menu = NavMenu.new(params[:nav_menu])
     
       if nav_menu.save
-    		redirect_to nav_menus_path(@group), :notice => "Successfully created navigation menu"
+    		redirect_to nav_menus_path, :notice => "Successfully created navigation menu"
       else
         flash[:error] = "Nav Menu could not be created"
         render :action => "new"
@@ -28,7 +28,7 @@ module Cms
       @nav_menu = NavMenu.find(params[:id])
 
       if @nav_menu.update_attributes(params[:nav_menu])
-    		redirect_to nav_menus_path(@group), :notice => "Successfully created navigation menu"
+    		redirect_to nav_menus_path, :notice => "Successfully created navigation menu"
       else
         flash[:error] = "Nav Menu could not be updated"
         render :action => "edit"
@@ -39,7 +39,7 @@ module Cms
       @nav_menu = NavMenu.find(params[:id])
       @nav_menu.destroy
 
-      redirect_to nav_menus_path(@group)
+      redirect_to nav_menus_path
     end
     
     def order_nav_items

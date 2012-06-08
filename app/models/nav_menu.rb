@@ -3,10 +3,7 @@ class NavMenu
   field :name
   field :menu_type
   
-  belongs_to :group 
   has_many :nav_items
-  
-  scope :top_level, where(:group_id => nil)
   
   def order_nav_items(params)
     nav_items.each do |nav_item|
@@ -22,11 +19,11 @@ class NavMenu
   end  
   
   def self.admin_nav
-    top_level.where(:menu_type => 'admin').first
+    where(:menu_type => 'admin').first
   end
 
   def self.main_nav
-    top_level.where(:menu_type => 'main_nav').first
+    where(:menu_type => 'main_nav').first
   end
     
 end

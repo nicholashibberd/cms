@@ -19,7 +19,7 @@ module Cms
       nav_menu = NavMenu.find(params[:nav_menu_id])
       nav_item = nav_menu.nav_items.new(params[:nav_item])
       if nav_item.save
-        redirect_to nav_menu_nav_items_path(@group, nav_menu)
+        redirect_to nav_menu_nav_items_path(nav_menu)
       else
         flash[:error] = "Nav Item could not be created"
         render :action => "new"
@@ -29,7 +29,7 @@ module Cms
     def update
       nav_item = NavItem.find(params[:id])
       if nav_item.update_attributes(params[:nav_item])
-        redirect_to nav_menu_nav_items_path(@group, nav_item.nav_menu)
+        redirect_to nav_menu_nav_items_path(nav_item.nav_menu)
       else
         flash[:error] = "Nav Item could not be updated"      
         render :action => "edit"
@@ -40,7 +40,7 @@ module Cms
       nav_item = NavItem.find(params[:id])
       nav_menu = nav_item.nav_menu
       nav_item.destroy
-      redirect_to nav_menu_nav_items_path(@group, nav_menu)
+      redirect_to nav_menu_nav_items_path(nav_menu)
     end
   end
 end

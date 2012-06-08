@@ -8,20 +8,12 @@ class Page
   field :template
   field :layout  
 
-  has_many :rows
-  has_many :widgets  
-  has_and_belongs_to_many :photos
-  belongs_to :group
-  
+  has_and_belongs_to_many :photos  
   before_create :generate_slug
   validates_presence_of :name
   
-  scope :top_level, where(:group_id => nil)
-  
   def generate_slug
-    new_slug = name.gsub("'", "").parameterize
-    group_slug = group_id ? "#{group.slug}-#{new_slug}" : new_slug
-    self.slug = group_slug
+    self.slug = name.gsub("'", "").parameterize
   end
   
   def to_param
@@ -40,32 +32,5 @@ class Page
     params_with_photos = page_type_params[:photo_ids] ? page_type_params : page_type_params.merge(:photo_ids => [])
   	update_attributes(params_with_photos)
   end
-    
-  # Widgets
-  def find_widget(widget_id)
-    widgets.select {|widget| widget.id.to_s == widget_id}.first
-  end
-  
-  def add_widget(params)
-    widget_type = params[:widget_type]
-    widget_class = widget_type.classify.constantize
-    widgets << widget_class.new(params[widget_type])
-  end
-  
-  def update_widget(params)    
-    widget_type = params[:widget_type]
-    @widget = find_widget(params[:id])
-    @widget.update_attributes(params[widget_type])
-  end
-  
-  # Regions
-  
-  def save_regions(page_regions)
-    regions.clear
-    page_regions.each do |region|
-      regions << Region.new(:name => region['name'], :panels => region['panels'].values)
-    end
-    save
-  end
-  
+      
 end

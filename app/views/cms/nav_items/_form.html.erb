@@ -1,18 +1,9 @@
-<%= form_for [@nav_menu, @nav_item], form_action_path(@group, @nav_item) do |f| %>
+<%= form_for [@nav_menu, @nav_item] do |f| %>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
-	<div class="field">
-	    <%= f.label :link_type %><br />
-			<%= f.radio_button :link_type , 'internal_link', {:onchange => "checkForLinkType(this.value)"} %> Internal Link<br />
-			<%= f.radio_button 'link_type', 'external_link', {:onchange => "checkForLinkType(this.value)"} %> External Link
-	</div>
-	<div class="field show" id="internal_link_field">
-    <%= f.label :page %><br />
-		<%= f.select :page_id, options_from_collection_for_select(Page.all, :id, :slug, @nav_item.page_id), {:include_blank => true} %>
-  </div>
-  <div class="field show" id="external_link_field">
+  <div class="field">
     <%= f.label :link_target %><br />
     <%= f.text_field :link_target %>
   </div>
