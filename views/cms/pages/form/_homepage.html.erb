@@ -1,0 +1,24 @@
+<div class='field'>
+    <div>
+	    <%= f.label :name %>
+	  </div>
+    <div>
+	    <%= f.text_field :name %>
+	  </div>
+	</div>
+<div class='field'>
+   <div>
+    <%= f.label :title %>
+  </div>
+   <div>
+    <%= f.text_field :title %>
+  </div>
+</div>
+<div class='field'>
+   <div>
+    <%= f.label :template %>
+  </div>
+   <div>
+    <%= f.select :template, options_for_select(['12x0', '11x1', '10x2', '9x3', '8x4', '7x5', '6x6', '5x7', '4x8', '3x9', '2x10', '1x11', '4x4x4'], @page.template) %>
+  </div>
+</div>

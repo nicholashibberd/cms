@@ -1,0 +1,14 @@
+<div class="calendar_event_day">
+	<div class="calendar_day_marker">
+		<%= day.day %>
+		<% events.each do |event| %>
+			<div class="calendar_event">
+				<div class="event_time">
+					<%= event.start_time.strftime('%H:%M') %>
+				</div>
+				<a data-toggle="modal" href="#event_<%= event.id %>_modal" ><%= event.title %></a>
+				<%= render 'calendar/event_modal_window', :event => event %>
+			</div>
+    <% end %>
+	</div>
+</div>

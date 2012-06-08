@@ -1,0 +1,25 @@
+<%= content_for :head do %>
+	<%= javascript_include_tag 'slimbox2' %>
+	<%= stylesheet_link_tag 'slimbox2' %>
+<% end %>
+
+<div class="gallery widget <%= widget.display.downcase %>">
+	<% widget.photos.asc(:position).each do |photo| %>
+		<div class="gallery_item">
+			<% if widget.display_in_lightbox == true %>
+				<%= link_to (image_tag photo.cover_image.thumb("#{widget.image_width}").url), photo.cover_image.url, :rel => "lightbox-gallery", :title => photo.caption %>
+			<% else %>
+				<% link_target = photo.link.blank? ? photo.cover_image.url : photo.link %>
+				<%= link_to (image_tag photo.cover_image.thumb("#{widget.image_width}").url), link_target, :title => photo.caption %>
+			<% end %>
+			
+			<% if widget.display_caption == true %>
+				<div class="gallery_widget_caption">
+					<%= photo.caption %>
+				</div>
+			<% end %>
+			
+		</div>
+	<% end %>
+	<div class="spacer"></div>
+</div>

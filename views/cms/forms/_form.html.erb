@@ -1,0 +1,50 @@
+<!-- <%#= javascript_tag do  %>
+$(function($) { 
+	
+	$("#forms_new_content").on("change", "select", function(event){
+		var valuesId = '#' + $(this).attr('id').replace('field_type', 'values')
+		var value = $(this).val();
+		if (value == 'select' || value == 'check_boxes' || value == 'radio_buttons') {
+			$(valuesId).parent().show();
+		}
+		else {
+			$(valuesId).parent().hide();
+		}
+	});
+	
+		
+}) -->
+<%# end %>
+
+<%= nested_form_for @form, form_action_path(@group, @form) do |f| %>
+	<%= f.hidden_field :group_id, :value => @form.group_id ||= @group_id %>	
+  <div class="field">
+	  <%= f.label :name %>
+	  <%= f.text_field :name %>
+	</div>
+	<div class="field">
+	  <%= f.label :form_fields %>
+		<%= f.fields_for :form_fields do |form_field| %>
+			<div class="form_field_remove controls">
+		  	<%= form_field.link_to_remove "Delete", :class => 'btn btn-danger' %>
+			</div>
+		  <div class="form_field_name">
+				<%= f.label :name %>
+			  <%= form_field.text_field :name %>
+			</div>
+			<div class="form_field_field_type">
+			  <%= f.label :field_type %>
+				<% form_field.object.field_type %>
+				<%= form_field.select :field_type, options_for_select(['text_field', 'text_area', 'select', 'check_boxes', 'radio_buttons'], form_field.object.field_type), {}, {:class => 'field_type_select'} %>
+			</div>
+			<div class="<%= show_form_field_values?(form_field) %> form_field_value">
+				<%= f.label :values %>
+			  <%= form_field.text_field :values %>
+			</div>
+		<% end %>
+		<%= f.link_to_add "Add field", :form_fields, :id => 'add_new_form_field', :class => 'btn btn-info' %>
+	</div>
+	<div class="button confirm_button">
+  	<%= f.submit :class => 'btn btn-success' %>
+	</div>
+<% end -%>

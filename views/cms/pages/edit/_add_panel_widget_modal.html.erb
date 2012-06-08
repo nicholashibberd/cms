@@ -1,0 +1,16 @@
+<div class="modal hide fade in" id="add_widget_modal_<%= panel.id %>" style="display: none;">
+  <div class="modal-header">
+      <a class="close" data-dismiss="modal" href="#">×</a>
+      <h3>Choose content type</h3>
+  </div>
+  <div class="modal-body">
+		<div id="add_widget_links_<%= panel.id %>" class="collapse in add_widget_links">
+			<% panel.widget_types.each do |widget_type| %>
+				<%= link_to widget_type.titleize, new_page_widget_path(@group, @page, :widget_type => "#{widget_type}_widget", :panel => panel), :class => 'btn add_widget_button' %>
+			<% end %>
+		</div>
+  </div>
+  <div class="modal-footer">
+			<a class="btn" data-dismiss="modal">Close</a>
+  </div>	
+</div>

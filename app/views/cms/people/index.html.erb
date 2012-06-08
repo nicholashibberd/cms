@@ -1,0 +1,19 @@
+<div class="top_right_controls">
+	<%= link_to 'New Person', new_person_path(@group), :class => 'btn btn-info' %>
+</div>
+
+<div class="page_header">
+	<h1>People</h1>
+</div>
+
+<section class="page_content">
+	<% @people.each do |person| %>
+		<div class="index_item page_index_item">
+			<div class="controls">
+				<%= link_to 'Delete', person_path(@group, person), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>			
+				<%= link_to 'Edit', edit_person_path(@group, person), :class => 'btn btn-warning' %>
+			</div>
+			<%= link_to person.name, edit_person_path(@group, person) %>
+		</div>
+	<% end %>
+</section>

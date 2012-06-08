@@ -1,0 +1,74 @@
+<section>
+	<div class="container edit">
+		<% @page.rows.each_with_index do |row, row_index| %>
+		
+			<div class="row top_level_row" id="row<%= row_index %>">
+				
+				<div class="row_header_form">
+					<h2>Section <%= row.position %></h2>
+					<%= form_tag '/cms/pages/update_row' do %>
+						<%= hidden_field_tag 'row_id', row.id %>
+						<div class="field">
+							<%= label_tag :section_header %>														
+					    <%= text_field_tag 'row[header]', row.header %>
+							<%= submit_tag 'Update section heading', :class => 'btn btn-success' %>
+						</div>
+					<% end %>
+				</div>
+				
+				<% row.columns.each_with_index do |column, column_index| %>
+				
+					<div class="span<%= column.span %> column column<%= column_index %>" id="row<%= row_index %>_column<%= column_index %>">
+						
+						<% unless !column.rows.empty? %>
+							<% column.widgets.each do |widget| %>
+								<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+								<%= link_to 'Edit', edit_page_widget_path(@group, @page, widget, :column => column.id), :class => 'btn btn-warning' %>
+							<% end %>
+							<a data-toggle="modal" href="#add_widget_modal_<%= column.id %>" class="btn btn-info">Add</a>
+							<%= render "cms/pages/edit/add_widget_modal", :column => column %>												
+						<% end %>
+					
+						<% column.rows.each_with_index do |sub_row, sub_row_index| %>					
+							<div class="row sub_row" id="row<%= sub_row_index %>">
+								<% sub_row.columns.each_with_index do |sub_column, sub_column_index| %>
+									<div class="span<%= sub_column.span %> column" id="column<%= sub_column_index %>">
+										<% sub_column.widgets.each do |widget| %>
+											<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+											<%= link_to 'Edit', edit_page_widget_path(@group, @page, widget, :column => sub_column.id), :class => 'btn btn-warning' %>											
+											<a data-toggle="modal" href="#add_widget_modal_<%= sub_column.id %>" class="btn btn-info">Add</a>
+											<%= render "cms/pages/edit/add_widget_modal", :column => sub_column %>												
+										<% end %>
+									</div>
+								<% end %>
+							</div>
+						<% end %>
+						
+					</div>
+					
+				<% end %>
+			</div>
+			
+		<% end %>
+		
+		<div class="row top_level_row" id="add_row_form">
+			<h2>Add section</h2>	
+				<%= form_tag '/cms/pages/add_row' do %>
+					<%= hidden_field_tag 'id', params[:id] %>
+						<div class="field">
+							<%= label_tag :section_header %>							
+					    <%= text_field_tag 'row_header' %>
+						</div>
+				    <div class="field">
+							<%= label_tag :columns %>
+				    	<%= select_tag :template, options_for_select(['12x0', '7x5', '3x9', '4x4x4']) %>
+					  </div>
+						<div class="field">
+							<%= submit_tag 'Add Row', :class => 'btn btn-success' %>
+						</div>					
+				  </div>				
+				<% end %>
+		</div>
+	
+	</div>
+</section>

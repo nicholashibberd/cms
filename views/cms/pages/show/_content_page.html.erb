@@ -1,0 +1,40 @@
+<% @page.rows.each_with_index do |row, row_index| %>
+	
+		<div class="row" id="row<%= row_index %>">
+
+			<% if row.header %>
+				<div class="row_header" id="row<%= row.position %>_header">
+					<h1><%= row.header %></h1>
+				</div>
+			<% end %>
+			
+			<% row.columns.each_with_index do |column, column_index| %>
+			
+				<div class="span<%= column.span %> column column<%= column_index %>" id="row<%= row_index %>_column<%= column_index %>">
+					
+					<% unless !column.rows.empty? %>
+						<% column.widgets.each do |widget| %>
+							<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+						<% end %>
+					<% end %>
+				
+					<% column.rows.each_with_index do |sub_row, sub_row_index| %>					
+						<div class="row" id="sub_row<%= sub_row_index %>">
+							<% sub_row.columns.each_with_index do |sub_column, sub_column_index| %>
+								<div class="span<%= sub_column.span %> column" id="sub_row<%= sub_column_index %>">
+									<% sub_column.widgets.each do |widget| %>
+										<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+									<% end %>
+								</div>
+							<% end %>
+						</div>
+					<% end %>
+					
+				</div>
+				
+			<% end %>
+		</div>
+		
+	<% end %>
+
+</div>

@@ -1,0 +1,12 @@
+<div id="article_comments">
+	<% article.comments.each do |comment| %>
+		<div class="comment">
+			<div class="comment_content">
+				<%= comment.content %>
+			</div>
+			<div class="comment_author">
+				<%= comment.author %>				
+			</div>
+		</div>
+	<% end %>
+</div>

@@ -1,0 +1,5 @@
+<h1>Editing <%= @category.name %></h1>
+
+<%= render 'form' %>
+
+<%= link_to "New #{@category.name.singularize}", new_article_path(:category_id => @category) %>

@@ -1,0 +1,15 @@
+<div id="<%= panel %>" class="span<%= column %> panel">
+	<% @page.widgets.by_panel(panel).each do |widget| %>
+		<%= render "cms/widgets/show/#{widget.widget_type}", :widget => widget %>
+		<div>
+			<%= link_to 'Edit', edit_page_widget_path(@group, @page, widget, :panel => panel) %>
+		</div>
+	<% end %>
+	<div class="add_widget_links">
+		<%= link_to 'Text', new_page_widget_path(@group, @page, :widget_type => 'content_widget', :panel => panel, :column => column), :class => 'btn' %>
+		<%= link_to 'Map', new_page_widget_path(@group, @page, :widget_type => 'map_widget', :panel => panel, :column => column), :class => 'btn' %>
+		<%= link_to 'Form', new_page_widget_path(@group, @page, :widget_type => 'form_widget', :panel => panel, :column => column), :class => 'btn' %>
+		<%= link_to 'Photos', new_page_widget_path(@group, @page, :widget_type => 'gallery_widget', :panel => panel, :column => column), :class => 'btn' %>
+		<%= link_to 'Upcoming Events', new_page_widget_path(@group, @page, :widget_type => 'events_widget', :panel => panel, :column => column), :class => 'btn' %>
+	</div>
+</div>

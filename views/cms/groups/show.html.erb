@@ -1,0 +1,52 @@
+<div class="page_header">
+	<h1><%= @group.name %></h1>
+</div>
+
+<section>
+	<h2>Pages</h2>
+	<div>
+	  <%= link_to 'New content page', new_page_path(:page_type => 'content', :group_id => @group.id), :class => 'btn btn-info' %>
+		<%= link_to 'New articles page', new_page_path(:page_type => 'articles', :group_id => @group.id), :class => 'btn btn-info' %>
+		<%= link_to 'New calendar page', new_page_path(:page_type => 'calendar', :group_id => @group.id), :class => 'btn btn-info' %>
+	</div>
+	<% @group.pages.each do |page| %>
+	  <div class="index_item">
+			<div class="controls">
+				<%= link_to 'Delete', page_path(@group, page), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>							
+				<%= link_to 'Edit', edit_page_path(@group, page), :class => 'btn btn-warning' %>							
+				<%= link_to 'View', host_page_path(page), :class => 'btn' %>
+			</div>
+			<%= link_to "#{page.name} (#{page.page_type.titleize})", edit_page_path(@group, page) %>
+		</div>
+	<% end %>
+</section>
+
+<section>
+	<h2>Events</h2>
+	<div>
+  	<%= link_to 'New event', new_event_path(:group_id => @group.id) %>	
+	</div>
+</section>	
+
+<section>
+	<h2>Navigation</h2>
+	<div>
+		<% if @group.nav_menus.empty? %>
+			<%= link_to 'New nav menu', new_nav_menu_path(:group_id => @group.id) %>
+		<% else %>
+			<%= link_to 'Edit nav menu', nav_menu_nav_items_path(@group, @group.nav_menus.first) %>
+		<% end %>
+	</div>
+</section>
+
+<section>
+	<h2>Homepage</h2>
+	<%= form_for(@group, :url => group_path(@group), :as => :group) do |f| -%>
+		<div class="field">
+			<%= f.select :homepage_id, options_from_collection_for_select(@group.pages, :id, :name, @group.homepage_id) %>
+		</div>
+		<div class="button confirm_button">
+	    <%= f.submit :class => 'btn btn-success' %>
+	  </div>
+	<% end -%>
+</section>
