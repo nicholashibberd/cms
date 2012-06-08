@@ -1,8 +1,0 @@
-<div id="articles_archive">
-	<h2><%= category.name %> Archive</h2>
-	<% Article.months_with_articles(category, group).each do |month| %>
-		<div class="articles_archive_item ">
-			<%= link_to month.strftime('%B %Y'), group_category_articles_path(group, category, :month => month.strftime('%m-%Y')) %>
-		</div>
-	<% end %>
-</div>

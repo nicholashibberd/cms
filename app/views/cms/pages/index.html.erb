@@ -1,7 +1,5 @@
 <div class='top_right_controls'>
-  <%= link_to 'New content page', new_page_path(@group, :page_type => 'content'), :class => 'btn btn-info' %>
-	<%= link_to 'New articles page', new_page_path(@group, :page_type => 'articles'), :class => 'btn btn-info' %>
-	<%= link_to 'New calendar page', new_page_path(@group, :page_type => 'calendar'), :class => 'btn btn-info' %>
+  <%= link_to 'New page', new_page_path, :class => 'btn btn-info' %>
 </div>
 
 <div class="page_header">
@@ -12,11 +10,11 @@
 	<% @pages.each do |page| %>
     <div class="index_item">
 			<div class="controls">
-				<%= link_to 'Delete', page_path(@group, page), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>							
-				<%= link_to "Edit", edit_page_path(@group, page), :class => 'btn btn-warning' %>				
+				<%= link_to 'Delete', page_path(page), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>							
+				<%= link_to "Edit", edit_page_path(page), :class => 'btn btn-warning' %>				
 				<%= link_to 'View', host_page_path(page), :class => 'btn' %>
 			</div>
-			<%= link_to "#{page.name} (#{page.page_type.titleize})", edit_page_path(@group, page) %>
+			<%= link_to page.name, edit_page_path(page) %>
 		</div>
 	<% end %>
 </section>
