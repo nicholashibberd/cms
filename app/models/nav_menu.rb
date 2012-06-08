@@ -4,6 +4,7 @@ class NavMenu
   field :menu_type
   
   has_many :nav_items
+  #test
   
   def order_nav_items(params)
     nav_items.each do |nav_item|
